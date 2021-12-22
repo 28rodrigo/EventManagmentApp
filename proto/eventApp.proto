@@ -1,0 +1,230 @@
+syntax = "proto3";
+
+//option csharp_namespace = "SD_TP2";
+
+import "google/protobuf/timestamp.proto"; //importação para usar o timestamp
+import "google/protobuf/empty.proto";
+package file;
+
+//Serviço dedicado para o cliente UTILIZADOR 
+service EventService {
+	rpc getUserEventInfo (infoId) returns (eventUserInfo);
+	rpc getAdminEventInfo (infoId) returns (eventAdminInfo);
+	rpc getStatisticsInfo (infoId) returns (ocupationResponse);
+	rpc createEvent (createEventInfo) returns (eventStateMsg);
+	rpc updateEvent (updateEventInfo) returns (eventStateMsg);
+}
+
+
+
+message infoId {
+	int32 idEvento = 1;  
+}
+
+message eventStateMsg{
+	bool state=1;
+	int32 id=2;
+}
+
+message eventUserInfo {
+	bool state = 1;
+	string name=2;
+	string imgUrl=3;
+	string description=4;
+	string latitude=5;
+	string longitude=6;
+	int32 eventPlace=7;
+	int32 eventType=8;
+	google.protobuf.Timestamp statisticsDate=9;
+	float ocupationPercentage=10;
+}
+message eventAdminInfo {
+	bool state = 1;
+	string name=2;
+	string imgUrl=3;
+	string description=4;
+	string latitude=5;
+	string longitude=6;
+	int32 eventPlace=7;
+	int32 eventType=8;
+	repeated user participants=9;
+	int32 nGuests=10;
+	int32 nParticipants=11;
+	google.protobuf.Timestamp statisticsDate=12;
+	float ocupationPercentage=13;
+	
+}
+message createEventInfo {
+	string name=1;
+	string imgUrl=2;
+	string description=3;
+	string latitude=4;
+	string longitude=5;
+	int32 eventPlace=6;
+	int32 eventType=7;
+}
+message updateEventInfo {
+	int32 id=1;
+	string name=2;
+	string imgUrl=3;
+	string description=4;
+	string latitude=5;
+	string longitude=6;
+	int32 eventPlace=7;
+	int32 eventType=8;
+}
+
+message user{
+	string username=1;
+	string name=2;
+	string organization=3;
+	string job=4;
+	string imgUrl=5;
+}
+
+message ocupation{
+	google.protobuf.Timestamp statisticsDate=1;
+	float ocupationPercentage=2;
+	int32 nParticipants=3;
+	int32 nActiveParticipants=4;
+	int32 nInvites=5;
+}
+
+message ocupationResponse{
+	bool state=1;
+	repeated ocupation ocupationStats=14;
+}
+//----------------------------------------------------------------------------------------
+// service UserService{
+// 	//ainda falta isto tudo
+// 	rpc login
+// 	rpc updateUser
+// 	rpc createUser
+// }
+//-------------------------------------------------------------------------------------
+service AccessEventService{
+	rpc getEntryCode (entryParam) returns (entryInfo) ;
+	rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
+	rpc getGlobalinviteLink( entryGlobalParam)returns(entryInfo);
+	// rpc setEventDevice //isto talvez para mais tarde	
+}
+
+message entryParam{
+	int32 userId=1;
+	int32 eventId=2;
+}
+message entryGuestParam{
+	int32 userId=1;
+	int32 eventId=2;
+	int32 guestId=3;
+}
+
+message entryGlobalParam{
+	int32 userId=1;
+	int32 eventId=2;
+}
+
+message entryInfo{
+	string keyCode=1;
+	google.protobuf.Timestamp expireDate=2;
+}
+
+//-----------------------------------------------------------------------------------
+message metaData {
+  string name = 1;
+  string type = 2;
+}
+
+message file {
+  bytes content = 1;
+}
+
+enum status {
+  PENDING = 0;
+  IN_PROGRESS = 1;
+  SUCCESS = 2;
+  FAILED = 3;
+}
+
+message fileUploadRequest {
+  oneof request {
+    metaData metadata = 1;
+    file file = 2;
+  }
+}
+
+message fileUploadResponse {
+  string name = 1;
+  string imgUrl=2;
+  status status = 3;
+}
+
+service UploadService{
+	rpc uploadImage(stream fileUploadRequest) returns (fileUploadResponse);
+}
+
+
+//Mensagem que contem a informação do Apostador para que seja possivel consultar o seu historico -> Serviço ClienteUtilizadorP 
+message PedidoHistorico {
+	int32 NumeroApostador = 1;
+}
+//Mensagem que contem informação completa de uma Aposta -> Usada na message ResultadoHistorico
+message Historico{
+	int32 NumeroApostador=1;
+	int32 NumeroAposta=2;
+	string Numeros =3;//Numero Utilizador + Chave + Numero Sorteio
+	string Estrelas =4;
+	google.protobuf.Timestamp DataAposta=5;
+	int32 Premio=6;
+}
+//Mensagem de retorno que contem todas as apostas já realizadas por um determinado Apostador e o Estado da operação -> Serviço ClienteUtilizadorP
+message ResultadoHistorico {
+	bool Estado = 1;
+	repeated Historico HistoricoApostas = 2; 
+} 
+
+//Serviço dedicado para o cliente GESTOR
+service ClienteGestorSorteioP {
+	//Função para determinar vencedores
+	rpc GerirSorteio (Resultado) returns (EstadoResultado);
+}
+
+//Mensagem que indica os numeros e as estrelas que foram sorteadas pelo Gestor -> Serviço ClienteGestorSorteioP
+message Resultado {
+	repeated int32 numeros = 1;
+	repeated int32 estrelas = 2;
+}
+//Mensagem que contem a toda a informação acerca de uma aposta Vencedora -> Usada na Mensagem EstadoResultado
+message Vencedor{
+	int32 NumeroAposta=1;
+	int32 NIF=2;
+	string Numeros=3;//Numero Utilizador + Chave + Numero Sorteio
+	string Estrelas=4;
+	google.protobuf.Timestamp DataAposta=5;
+	int32 Premio=6;
+}
+
+//Mensagem de retorno que contem todas as aposta vencedoras e tambem o estado da operação -> Serviço ClienteGestorSorteioP
+message EstadoResultado {
+	bool Estado = 1;
+	repeated Vencedor ApostasVencedoras = 2;
+}
+
+//Serviço dedicado para o cliente ADMINISTRADOR
+service ClienteAdministradorP{
+	//Função responsável por Arquivar apostas ativas
+	rpc Arquivar (google.protobuf.Empty) returns (ArquivoResposta);
+	//Função para consultar apostas ativas e utlizadores que já realizaram apostas
+	rpc Consultar (google.protobuf.Empty) returns (ConsultarResposta);
+}
+
+//Mensagem que retorna o estado da operação de arquivar apostas ativas -> Serviço ClienteAdministradorP
+message ArquivoResposta {
+	bool EstadoArquivo = 1;
+}
+
+//Menasgem de retorno que contêm toda informação acerca dos Utilizadores, das apostas ativas e do estado da operação
+message ConsultarResposta {
+	bool Estado = 1;
+	repeated Historico Apostas = 2;
+}
