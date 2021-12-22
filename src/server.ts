@@ -3,6 +3,7 @@ import * as grpc from 'grpc';
 import { getConnectionManager } from 'typeorm';
 
 import connection from './db/config';
+import 'reflect-metadata'
 
 import greeterHandler from './handlers/greeter';
 import { protoIndex } from './proto';
