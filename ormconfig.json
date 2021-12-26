@@ -7,12 +7,12 @@
     "database": "test_db",
     "synchronize": true,
    "logging": false,
-   "entities": [
-      "src/models/**/*.ts"
-   ],
-   "migrations": [
-      "src/migration/**/*.ts"
-   ],
+   "entities": ["src/models/*.ts"],
+   "migrationsTableName": "app_migration_table",
+   "migrations": ["src/migration/*.ts"], 
+   "cli": { 
+      "migrationsDir": "./src/migration"
+   },
    "subscribers": [
     "src/subscriber/**/*.ts"
    ]

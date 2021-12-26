@@ -4,7 +4,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
+import {handleClientStreamingCall} from "@grpc/grpc-js/build/src/server-call";
 import * as eventApp_pb from "./eventApp_pb";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
@@ -92,7 +93,7 @@ export interface IEventServiceClient {
 }
 
 export class EventServiceClient extends grpc.Client implements IEventServiceClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
     public getUserEventInfo(request: eventApp_pb.infoId, callback: (error: grpc.ServiceError | null, response: eventApp_pb.eventUserInfo) => void): grpc.ClientUnaryCall;
     public getUserEventInfo(request: eventApp_pb.infoId, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.eventUserInfo) => void): grpc.ClientUnaryCall;
     public getUserEventInfo(request: eventApp_pb.infoId, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.eventUserInfo) => void): grpc.ClientUnaryCall;
@@ -165,7 +166,7 @@ export interface IAccessEventServiceClient {
 }
 
 export class AccessEventServiceClient extends grpc.Client implements IAccessEventServiceClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
     public getEntryCode(request: eventApp_pb.entryParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
@@ -194,7 +195,7 @@ interface IUploadServiceService_IuploadImage extends grpc.MethodDefinition<event
 export const UploadServiceService: IUploadServiceService;
 
 export interface IUploadServiceServer {
-    uploadImage: grpc.handleClientStreamingCall<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse>;
+    uploadImage: handleClientStreamingCall<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse>;
 }
 
 export interface IUploadServiceClient {
@@ -205,92 +206,9 @@ export interface IUploadServiceClient {
 }
 
 export class UploadServiceClient extends grpc.Client implements IUploadServiceClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
     public uploadImage(callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
     public uploadImage(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
     public uploadImage(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
     public uploadImage(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-}
-
-interface IClienteGestorSorteioPService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
-    gerirSorteio: IClienteGestorSorteioPService_IGerirSorteio;
-}
-
-interface IClienteGestorSorteioPService_IGerirSorteio extends grpc.MethodDefinition<eventApp_pb.Resultado, eventApp_pb.EstadoResultado> {
-    path: "/file.ClienteGestorSorteioP/GerirSorteio";
-    requestStream: false;
-    responseStream: false;
-    requestSerialize: grpc.serialize<eventApp_pb.Resultado>;
-    requestDeserialize: grpc.deserialize<eventApp_pb.Resultado>;
-    responseSerialize: grpc.serialize<eventApp_pb.EstadoResultado>;
-    responseDeserialize: grpc.deserialize<eventApp_pb.EstadoResultado>;
-}
-
-export const ClienteGestorSorteioPService: IClienteGestorSorteioPService;
-
-export interface IClienteGestorSorteioPServer {
-    gerirSorteio: grpc.handleUnaryCall<eventApp_pb.Resultado, eventApp_pb.EstadoResultado>;
-}
-
-export interface IClienteGestorSorteioPClient {
-    gerirSorteio(request: eventApp_pb.Resultado, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-    gerirSorteio(request: eventApp_pb.Resultado, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-    gerirSorteio(request: eventApp_pb.Resultado, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-}
-
-export class ClienteGestorSorteioPClient extends grpc.Client implements IClienteGestorSorteioPClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
-    public gerirSorteio(request: eventApp_pb.Resultado, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-    public gerirSorteio(request: eventApp_pb.Resultado, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-    public gerirSorteio(request: eventApp_pb.Resultado, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.EstadoResultado) => void): grpc.ClientUnaryCall;
-}
-
-interface IClienteAdministradorPService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
-    arquivar: IClienteAdministradorPService_IArquivar;
-    consultar: IClienteAdministradorPService_IConsultar;
-}
-
-interface IClienteAdministradorPService_IArquivar extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, eventApp_pb.ArquivoResposta> {
-    path: "/file.ClienteAdministradorP/Arquivar";
-    requestStream: false;
-    responseStream: false;
-    requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
-    requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
-    responseSerialize: grpc.serialize<eventApp_pb.ArquivoResposta>;
-    responseDeserialize: grpc.deserialize<eventApp_pb.ArquivoResposta>;
-}
-interface IClienteAdministradorPService_IConsultar extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, eventApp_pb.ConsultarResposta> {
-    path: "/file.ClienteAdministradorP/Consultar";
-    requestStream: false;
-    responseStream: false;
-    requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
-    requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
-    responseSerialize: grpc.serialize<eventApp_pb.ConsultarResposta>;
-    responseDeserialize: grpc.deserialize<eventApp_pb.ConsultarResposta>;
-}
-
-export const ClienteAdministradorPService: IClienteAdministradorPService;
-
-export interface IClienteAdministradorPServer {
-    arquivar: grpc.handleUnaryCall<google_protobuf_empty_pb.Empty, eventApp_pb.ArquivoResposta>;
-    consultar: grpc.handleUnaryCall<google_protobuf_empty_pb.Empty, eventApp_pb.ConsultarResposta>;
-}
-
-export interface IClienteAdministradorPClient {
-    arquivar(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    arquivar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    arquivar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    consultar(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
-    consultar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
-    consultar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
-}
-
-export class ClienteAdministradorPClient extends grpc.Client implements IClienteAdministradorPClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
-    public arquivar(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    public arquivar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    public arquivar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ArquivoResposta) => void): grpc.ClientUnaryCall;
-    public consultar(request: google_protobuf_empty_pb.Empty, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
-    public consultar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
-    public consultar(request: google_protobuf_empty_pb.Empty, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.ConsultarResposta) => void): grpc.ClientUnaryCall;
 }

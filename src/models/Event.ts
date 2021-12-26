@@ -20,12 +20,12 @@ export  class Event {
    @Column() 
    imageUrl: string; 
    @Column() 
-   descricao: string;
+   description: string;
 
    @Column() 
-   latitude: number; 
+   latitude: string; 
    @Column() 
-   longitude: number; 
+   longitude: string; 
    @Column({type:"enum",enum:localType,default:localType.PLACE}) 
    eventLocal: localType;
 

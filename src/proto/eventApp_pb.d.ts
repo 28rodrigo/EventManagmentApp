@@ -12,6 +12,7 @@ export class infoId extends jspb.Message {
     getIdevento(): number;
     setIdevento(value: number): infoId;
 
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): infoId.AsObject;
     static toObject(includeInstance: boolean, msg: infoId): infoId.AsObject;
@@ -31,8 +32,10 @@ export namespace infoId {
 export class eventStateMsg extends jspb.Message { 
     getState(): boolean;
     setState(value: boolean): eventStateMsg;
+
     getId(): number;
     setId(value: number): eventStateMsg;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventStateMsg.AsObject;
@@ -54,27 +57,37 @@ export namespace eventStateMsg {
 export class eventUserInfo extends jspb.Message { 
     getState(): boolean;
     setState(value: boolean): eventUserInfo;
+
     getName(): string;
     setName(value: string): eventUserInfo;
+
     getImgurl(): string;
     setImgurl(value: string): eventUserInfo;
+
     getDescription(): string;
     setDescription(value: string): eventUserInfo;
+
     getLatitude(): string;
     setLatitude(value: string): eventUserInfo;
+
     getLongitude(): string;
     setLongitude(value: string): eventUserInfo;
+
     getEventplace(): number;
     setEventplace(value: number): eventUserInfo;
+
     getEventtype(): number;
     setEventtype(value: number): eventUserInfo;
+
 
     hasStatisticsdate(): boolean;
     clearStatisticsdate(): void;
     getStatisticsdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setStatisticsdate(value?: google_protobuf_timestamp_pb.Timestamp): eventUserInfo;
+
     getOcupationpercentage(): number;
     setOcupationpercentage(value: number): eventUserInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventUserInfo.AsObject;
@@ -104,35 +117,48 @@ export namespace eventUserInfo {
 export class eventAdminInfo extends jspb.Message { 
     getState(): boolean;
     setState(value: boolean): eventAdminInfo;
+
     getName(): string;
     setName(value: string): eventAdminInfo;
+
     getImgurl(): string;
     setImgurl(value: string): eventAdminInfo;
+
     getDescription(): string;
     setDescription(value: string): eventAdminInfo;
+
     getLatitude(): string;
     setLatitude(value: string): eventAdminInfo;
+
     getLongitude(): string;
     setLongitude(value: string): eventAdminInfo;
+
     getEventplace(): number;
     setEventplace(value: number): eventAdminInfo;
+
     getEventtype(): number;
     setEventtype(value: number): eventAdminInfo;
+
     clearParticipantsList(): void;
     getParticipantsList(): Array<user>;
     setParticipantsList(value: Array<user>): eventAdminInfo;
     addParticipants(value?: user, index?: number): user;
+
     getNguests(): number;
     setNguests(value: number): eventAdminInfo;
+
     getNparticipants(): number;
     setNparticipants(value: number): eventAdminInfo;
+
 
     hasStatisticsdate(): boolean;
     clearStatisticsdate(): void;
     getStatisticsdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setStatisticsdate(value?: google_protobuf_timestamp_pb.Timestamp): eventAdminInfo;
+
     getOcupationpercentage(): number;
     setOcupationpercentage(value: number): eventAdminInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventAdminInfo.AsObject;
@@ -165,18 +191,25 @@ export namespace eventAdminInfo {
 export class createEventInfo extends jspb.Message { 
     getName(): string;
     setName(value: string): createEventInfo;
+
     getImgurl(): string;
     setImgurl(value: string): createEventInfo;
+
     getDescription(): string;
     setDescription(value: string): createEventInfo;
+
     getLatitude(): string;
     setLatitude(value: string): createEventInfo;
+
     getLongitude(): string;
     setLongitude(value: string): createEventInfo;
+
     getEventplace(): number;
     setEventplace(value: number): createEventInfo;
+
     getEventtype(): number;
     setEventtype(value: number): createEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): createEventInfo.AsObject;
@@ -203,20 +236,28 @@ export namespace createEventInfo {
 export class updateEventInfo extends jspb.Message { 
     getId(): number;
     setId(value: number): updateEventInfo;
+
     getName(): string;
     setName(value: string): updateEventInfo;
+
     getImgurl(): string;
     setImgurl(value: string): updateEventInfo;
+
     getDescription(): string;
     setDescription(value: string): updateEventInfo;
+
     getLatitude(): string;
     setLatitude(value: string): updateEventInfo;
+
     getLongitude(): string;
     setLongitude(value: string): updateEventInfo;
+
     getEventplace(): number;
     setEventplace(value: number): updateEventInfo;
+
     getEventtype(): number;
     setEventtype(value: number): updateEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): updateEventInfo.AsObject;
@@ -244,14 +285,19 @@ export namespace updateEventInfo {
 export class user extends jspb.Message { 
     getUsername(): string;
     setUsername(value: string): user;
+
     getName(): string;
     setName(value: string): user;
+
     getOrganization(): string;
     setOrganization(value: string): user;
+
     getJob(): string;
     setJob(value: string): user;
+
     getImgurl(): string;
     setImgurl(value: string): user;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): user.AsObject;
@@ -279,14 +325,19 @@ export class ocupation extends jspb.Message {
     clearStatisticsdate(): void;
     getStatisticsdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setStatisticsdate(value?: google_protobuf_timestamp_pb.Timestamp): ocupation;
+
     getOcupationpercentage(): number;
     setOcupationpercentage(value: number): ocupation;
+
     getNparticipants(): number;
     setNparticipants(value: number): ocupation;
+
     getNactiveparticipants(): number;
     setNactiveparticipants(value: number): ocupation;
+
     getNinvites(): number;
     setNinvites(value: number): ocupation;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ocupation.AsObject;
@@ -311,10 +362,12 @@ export namespace ocupation {
 export class ocupationResponse extends jspb.Message { 
     getState(): boolean;
     setState(value: boolean): ocupationResponse;
+
     clearOcupationstatsList(): void;
     getOcupationstatsList(): Array<ocupation>;
     setOcupationstatsList(value: Array<ocupation>): ocupationResponse;
     addOcupationstats(value?: ocupation, index?: number): ocupation;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ocupationResponse.AsObject;
@@ -336,8 +389,10 @@ export namespace ocupationResponse {
 export class entryParam extends jspb.Message { 
     getUserid(): number;
     setUserid(value: number): entryParam;
+
     getEventid(): number;
     setEventid(value: number): entryParam;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): entryParam.AsObject;
@@ -359,10 +414,13 @@ export namespace entryParam {
 export class entryGuestParam extends jspb.Message { 
     getUserid(): number;
     setUserid(value: number): entryGuestParam;
+
     getEventid(): number;
     setEventid(value: number): entryGuestParam;
+
     getGuestid(): number;
     setGuestid(value: number): entryGuestParam;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): entryGuestParam.AsObject;
@@ -385,8 +443,10 @@ export namespace entryGuestParam {
 export class entryGlobalParam extends jspb.Message { 
     getUserid(): number;
     setUserid(value: number): entryGlobalParam;
+
     getEventid(): number;
     setEventid(value: number): entryGlobalParam;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): entryGlobalParam.AsObject;
@@ -409,10 +469,12 @@ export class entryInfo extends jspb.Message {
     getKeycode(): string;
     setKeycode(value: string): entryInfo;
 
+
     hasExpiredate(): boolean;
     clearExpiredate(): void;
     getExpiredate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setExpiredate(value?: google_protobuf_timestamp_pb.Timestamp): entryInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): entryInfo.AsObject;
@@ -434,8 +496,10 @@ export namespace entryInfo {
 export class metaData extends jspb.Message { 
     getName(): string;
     setName(value: string): metaData;
+
     getType(): string;
     setType(value: string): metaData;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): metaData.AsObject;
@@ -460,6 +524,7 @@ export class file extends jspb.Message {
     getContent_asB64(): string;
     setContent(value: Uint8Array | string): file;
 
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): file.AsObject;
     static toObject(includeInstance: boolean, msg: file): file.AsObject;
@@ -483,10 +548,12 @@ export class fileUploadRequest extends jspb.Message {
     getMetadata(): metaData | undefined;
     setMetadata(value?: metaData): fileUploadRequest;
 
+
     hasFile(): boolean;
     clearFile(): void;
     getFile(): file | undefined;
     setFile(value?: file): fileUploadRequest;
+
 
     getRequestCase(): fileUploadRequest.RequestCase;
 
@@ -508,8 +575,11 @@ export namespace fileUploadRequest {
 
     export enum RequestCase {
         REQUEST_NOT_SET = 0,
-        METADATA = 1,
-        FILE = 2,
+    
+    METADATA = 1,
+
+    FILE = 2,
+
     }
 
 }
@@ -517,10 +587,13 @@ export namespace fileUploadRequest {
 export class fileUploadResponse extends jspb.Message { 
     getName(): string;
     setName(value: string): fileUploadResponse;
+
     getImgurl(): string;
     setImgurl(value: string): fileUploadResponse;
+
     getStatus(): status;
     setStatus(value: status): fileUploadResponse;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): fileUploadResponse.AsObject;
@@ -537,224 +610,6 @@ export namespace fileUploadResponse {
         name: string,
         imgurl: string,
         status: status,
-    }
-}
-
-export class PedidoHistorico extends jspb.Message { 
-    getNumeroapostador(): number;
-    setNumeroapostador(value: number): PedidoHistorico;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): PedidoHistorico.AsObject;
-    static toObject(includeInstance: boolean, msg: PedidoHistorico): PedidoHistorico.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: PedidoHistorico, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): PedidoHistorico;
-    static deserializeBinaryFromReader(message: PedidoHistorico, reader: jspb.BinaryReader): PedidoHistorico;
-}
-
-export namespace PedidoHistorico {
-    export type AsObject = {
-        numeroapostador: number,
-    }
-}
-
-export class Historico extends jspb.Message { 
-    getNumeroapostador(): number;
-    setNumeroapostador(value: number): Historico;
-    getNumeroaposta(): number;
-    setNumeroaposta(value: number): Historico;
-    getNumeros(): string;
-    setNumeros(value: string): Historico;
-    getEstrelas(): string;
-    setEstrelas(value: string): Historico;
-
-    hasDataaposta(): boolean;
-    clearDataaposta(): void;
-    getDataaposta(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setDataaposta(value?: google_protobuf_timestamp_pb.Timestamp): Historico;
-    getPremio(): number;
-    setPremio(value: number): Historico;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Historico.AsObject;
-    static toObject(includeInstance: boolean, msg: Historico): Historico.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Historico, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Historico;
-    static deserializeBinaryFromReader(message: Historico, reader: jspb.BinaryReader): Historico;
-}
-
-export namespace Historico {
-    export type AsObject = {
-        numeroapostador: number,
-        numeroaposta: number,
-        numeros: string,
-        estrelas: string,
-        dataaposta?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        premio: number,
-    }
-}
-
-export class ResultadoHistorico extends jspb.Message { 
-    getEstado(): boolean;
-    setEstado(value: boolean): ResultadoHistorico;
-    clearHistoricoapostasList(): void;
-    getHistoricoapostasList(): Array<Historico>;
-    setHistoricoapostasList(value: Array<Historico>): ResultadoHistorico;
-    addHistoricoapostas(value?: Historico, index?: number): Historico;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ResultadoHistorico.AsObject;
-    static toObject(includeInstance: boolean, msg: ResultadoHistorico): ResultadoHistorico.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ResultadoHistorico, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ResultadoHistorico;
-    static deserializeBinaryFromReader(message: ResultadoHistorico, reader: jspb.BinaryReader): ResultadoHistorico;
-}
-
-export namespace ResultadoHistorico {
-    export type AsObject = {
-        estado: boolean,
-        historicoapostasList: Array<Historico.AsObject>,
-    }
-}
-
-export class Resultado extends jspb.Message { 
-    clearNumerosList(): void;
-    getNumerosList(): Array<number>;
-    setNumerosList(value: Array<number>): Resultado;
-    addNumeros(value: number, index?: number): number;
-    clearEstrelasList(): void;
-    getEstrelasList(): Array<number>;
-    setEstrelasList(value: Array<number>): Resultado;
-    addEstrelas(value: number, index?: number): number;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Resultado.AsObject;
-    static toObject(includeInstance: boolean, msg: Resultado): Resultado.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Resultado, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Resultado;
-    static deserializeBinaryFromReader(message: Resultado, reader: jspb.BinaryReader): Resultado;
-}
-
-export namespace Resultado {
-    export type AsObject = {
-        numerosList: Array<number>,
-        estrelasList: Array<number>,
-    }
-}
-
-export class Vencedor extends jspb.Message { 
-    getNumeroaposta(): number;
-    setNumeroaposta(value: number): Vencedor;
-    getNif(): number;
-    setNif(value: number): Vencedor;
-    getNumeros(): string;
-    setNumeros(value: string): Vencedor;
-    getEstrelas(): string;
-    setEstrelas(value: string): Vencedor;
-
-    hasDataaposta(): boolean;
-    clearDataaposta(): void;
-    getDataaposta(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setDataaposta(value?: google_protobuf_timestamp_pb.Timestamp): Vencedor;
-    getPremio(): number;
-    setPremio(value: number): Vencedor;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Vencedor.AsObject;
-    static toObject(includeInstance: boolean, msg: Vencedor): Vencedor.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Vencedor, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Vencedor;
-    static deserializeBinaryFromReader(message: Vencedor, reader: jspb.BinaryReader): Vencedor;
-}
-
-export namespace Vencedor {
-    export type AsObject = {
-        numeroaposta: number,
-        nif: number,
-        numeros: string,
-        estrelas: string,
-        dataaposta?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        premio: number,
-    }
-}
-
-export class EstadoResultado extends jspb.Message { 
-    getEstado(): boolean;
-    setEstado(value: boolean): EstadoResultado;
-    clearApostasvencedorasList(): void;
-    getApostasvencedorasList(): Array<Vencedor>;
-    setApostasvencedorasList(value: Array<Vencedor>): EstadoResultado;
-    addApostasvencedoras(value?: Vencedor, index?: number): Vencedor;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): EstadoResultado.AsObject;
-    static toObject(includeInstance: boolean, msg: EstadoResultado): EstadoResultado.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: EstadoResultado, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): EstadoResultado;
-    static deserializeBinaryFromReader(message: EstadoResultado, reader: jspb.BinaryReader): EstadoResultado;
-}
-
-export namespace EstadoResultado {
-    export type AsObject = {
-        estado: boolean,
-        apostasvencedorasList: Array<Vencedor.AsObject>,
-    }
-}
-
-export class ArquivoResposta extends jspb.Message { 
-    getEstadoarquivo(): boolean;
-    setEstadoarquivo(value: boolean): ArquivoResposta;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ArquivoResposta.AsObject;
-    static toObject(includeInstance: boolean, msg: ArquivoResposta): ArquivoResposta.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ArquivoResposta, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ArquivoResposta;
-    static deserializeBinaryFromReader(message: ArquivoResposta, reader: jspb.BinaryReader): ArquivoResposta;
-}
-
-export namespace ArquivoResposta {
-    export type AsObject = {
-        estadoarquivo: boolean,
-    }
-}
-
-export class ConsultarResposta extends jspb.Message { 
-    getEstado(): boolean;
-    setEstado(value: boolean): ConsultarResposta;
-    clearApostasList(): void;
-    getApostasList(): Array<Historico>;
-    setApostasList(value: Array<Historico>): ConsultarResposta;
-    addApostas(value?: Historico, index?: number): Historico;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ConsultarResposta.AsObject;
-    static toObject(includeInstance: boolean, msg: ConsultarResposta): ConsultarResposta.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ConsultarResposta, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ConsultarResposta;
-    static deserializeBinaryFromReader(message: ConsultarResposta, reader: jspb.BinaryReader): ConsultarResposta;
-}
-
-export namespace ConsultarResposta {
-    export type AsObject = {
-        estado: boolean,
-        apostasList: Array<Historico.AsObject>,
     }
 }
 

@@ -1,54 +1,10 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var eventApp_pb = require('./eventApp_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
-
-function serialize_file_ArquivoResposta(arg) {
-  if (!(arg instanceof eventApp_pb.ArquivoResposta)) {
-    throw new Error('Expected argument of type file.ArquivoResposta');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_file_ArquivoResposta(buffer_arg) {
-  return eventApp_pb.ArquivoResposta.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_file_ConsultarResposta(arg) {
-  if (!(arg instanceof eventApp_pb.ConsultarResposta)) {
-    throw new Error('Expected argument of type file.ConsultarResposta');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_file_ConsultarResposta(buffer_arg) {
-  return eventApp_pb.ConsultarResposta.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_file_EstadoResultado(arg) {
-  if (!(arg instanceof eventApp_pb.EstadoResultado)) {
-    throw new Error('Expected argument of type file.EstadoResultado');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_file_EstadoResultado(buffer_arg) {
-  return eventApp_pb.EstadoResultado.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_file_Resultado(arg) {
-  if (!(arg instanceof eventApp_pb.Resultado)) {
-    throw new Error('Expected argument of type file.Resultado');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_file_Resultado(buffer_arg) {
-  return eventApp_pb.Resultado.deserializeBinary(new Uint8Array(buffer_arg));
-}
 
 function serialize_file_createEventInfo(arg) {
   if (!(arg instanceof eventApp_pb.createEventInfo)) {
@@ -193,17 +149,6 @@ function deserialize_file_updateEventInfo(buffer_arg) {
   return eventApp_pb.updateEventInfo.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_google_protobuf_Empty(arg) {
-  if (!(arg instanceof google_protobuf_empty_pb.Empty)) {
-    throw new Error('Expected argument of type google.protobuf.Empty');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_google_protobuf_Empty(buffer_arg) {
-  return google_protobuf_empty_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 
 // Serviço dedicado para o cliente UTILIZADOR 
 var EventServiceService = exports.EventServiceService = {
@@ -326,49 +271,3 @@ var UploadServiceService = exports.UploadServiceService = {
 };
 
 exports.UploadServiceClient = grpc.makeGenericClientConstructor(UploadServiceService);
-// Serviço dedicado para o cliente GESTOR
-var ClienteGestorSorteioPService = exports.ClienteGestorSorteioPService = {
-  // Função para determinar vencedores
-gerirSorteio: {
-    path: '/file.ClienteGestorSorteioP/GerirSorteio',
-    requestStream: false,
-    responseStream: false,
-    requestType: eventApp_pb.Resultado,
-    responseType: eventApp_pb.EstadoResultado,
-    requestSerialize: serialize_file_Resultado,
-    requestDeserialize: deserialize_file_Resultado,
-    responseSerialize: serialize_file_EstadoResultado,
-    responseDeserialize: deserialize_file_EstadoResultado,
-  },
-};
-
-exports.ClienteGestorSorteioPClient = grpc.makeGenericClientConstructor(ClienteGestorSorteioPService);
-// Serviço dedicado para o cliente ADMINISTRADOR
-var ClienteAdministradorPService = exports.ClienteAdministradorPService = {
-  // Função responsável por Arquivar apostas ativas
-arquivar: {
-    path: '/file.ClienteAdministradorP/Arquivar',
-    requestStream: false,
-    responseStream: false,
-    requestType: google_protobuf_empty_pb.Empty,
-    responseType: eventApp_pb.ArquivoResposta,
-    requestSerialize: serialize_google_protobuf_Empty,
-    requestDeserialize: deserialize_google_protobuf_Empty,
-    responseSerialize: serialize_file_ArquivoResposta,
-    responseDeserialize: deserialize_file_ArquivoResposta,
-  },
-  // Função para consultar apostas ativas e utlizadores que já realizaram apostas
-consultar: {
-    path: '/file.ClienteAdministradorP/Consultar',
-    requestStream: false,
-    responseStream: false,
-    requestType: google_protobuf_empty_pb.Empty,
-    responseType: eventApp_pb.ConsultarResposta,
-    requestSerialize: serialize_google_protobuf_Empty,
-    requestDeserialize: deserialize_google_protobuf_Empty,
-    responseSerialize: serialize_file_ConsultarResposta,
-    responseDeserialize: deserialize_file_ConsultarResposta,
-  },
-};
-
-exports.ClienteAdministradorPClient = grpc.makeGenericClientConstructor(ClienteAdministradorPService);

@@ -1,0 +1,43 @@
+create event
+
+{
+  "name": "Congresso partidário",
+  "imgUrl": "https://conceitos.com/wp-content/uploads/politica/Congresso-415x277.jpg",
+  "description": "Congresso do partido A",
+  "latitude": "-12565434",
+  "longitude": "-489521",
+  "eventPlace": 1,
+  "eventType": 2
+}
+
+
+updateEvent
+
+{
+  "id": 1,
+  "name": "Congresso partidário",
+  "imgUrl": "https://conceitos.com/wp-content/uploads/politica/Congresso-415x277.jpg",
+  "description": "Congresso do partido A",
+  "latitude": "-12565434",
+  "longitude": "-489521",
+  "eventPlace": 1,
+  "eventType": 2
+}
+
+getUserEventInfo
+
+{
+  "idEvento": 1
+}
+
+getAdminEventInfo
+
+{
+  "idEvento": 1
+}
+
+getStatisticsInfo
+
+{
+  "idEvento": 10
+}
