@@ -66,6 +66,7 @@ message eventAdminInfo {
 	
 }
 message createEventInfo {
+	
 	string name=1;
 	string imgUrl=2;
 	string description=3;
@@ -76,6 +77,7 @@ message createEventInfo {
 	int32 ageRestriction=8;
 	google.protobuf.Timestamp startDate=9;
 	google.protobuf.Timestamp endDate=10;
+	int32 userId=11;
 }
 message updateEventInfo {
 	int32 id=1;
@@ -89,6 +91,7 @@ message updateEventInfo {
 	int32 ageRestriction=9;
 	google.protobuf.Timestamp startDate=10;
 	google.protobuf.Timestamp endDate=11;
+	int32 userId=12;
 }
 
 message user{
@@ -112,20 +115,53 @@ message ocupationResponse{
 	string statusMsg=3;
 }
 //----------------------------------------------------------------------------------------
-// service UserService{
-// 	//ainda falta isto tudo
-// 	rpc login
-// 	rpc updateUser
-// 	rpc createUser
-// }
+service UserService{
+//rpc login
+	rpc createUser (createUserInfo) returns(userStateMsg);
+	rpc updateUser (updateUserInfo) returns (userStateMsg);
+}
+message createUserInfo{
+	string username=1;
+	string name=2;
+	int32 age=3;
+	string imageUrl=4;
+	string organization=5;
+	string job=6;
+}
+message updateUserInfo{
+	string username=1;
+	string name=2;
+	int32 age=3;
+	string imageUrl=4;
+	string organization=5;
+	string job=6;
+	int32 id=7;
+}
+message userStateMsg{
+	bool state=1;
+	int32 id=2;
+	string statusMsg=3;
+}
 //-------------------------------------------------------------------------------------
 service AccessEventService{
 	rpc getEntryCode (entryParam) returns (entryInfo) ;
 	rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
 	rpc getGlobalinviteLink( entryGlobalParam)returns(entryInfo);
+	rpc addUserToEvent(entryAddUser)returns(entryResponse);
+
 	// rpc setEventDevice //isto talvez para mais tarde	
 }
+message entryAddUser{
+	int32 userId=1;
+	int32 eventId=2;
+	int32 guestId=3;
+	google.protobuf.Timestamp expireDate=4;
 
+}
+message entryResponse{
+	bool status=3;
+	string statusMsg=4;
+}
 message entryParam{
 	int32 userId=1;
 	int32 eventId=2;

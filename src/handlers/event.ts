@@ -22,6 +22,7 @@ class EventHandler implements IEventServiceServer
     createEvent =async (call:grpc.ServerUnaryCall<createEventInfo, eventStateMsg>,callback:grpc.sendUnaryData<eventStateMsg>):Promise<void> =>{
         try{
             var newE=new Event();
+            newE.ownerId=call.request.getUserid();
             newE.name=call.request.getName();
             newE.imageUrl=call.request.getImgurl();
             newE.description=call.request.getDescription();
@@ -71,6 +72,14 @@ class EventHandler implements IEventServiceServer
     }
     updateEvent =async (call:grpc.ServerUnaryCall<updateEventInfo, eventStateMsg>,callback:grpc.sendUnaryData<eventStateMsg>):Promise<void> =>{
         try{
+            if(await getRepository(Event).count({where:{id:call.request.getId(),ownerId:call.request.getUserid()}})!=1)
+        {
+            const reply=new eventStateMsg();
+            reply.setId(0)
+            reply.setState(false);
+            reply.setStatusmsg("Event does not exist or access denied!")
+            callback(null,reply);
+        }else{
             var newE=new Event();
             newE.id=call.request.getId();
             newE.name=call.request.getName();
@@ -111,6 +120,8 @@ class EventHandler implements IEventServiceServer
                     reply.setStatusmsg(res.raw)
                     callback(null,reply);
             }
+        }
+            
         }catch(e){
             const reply:eventStateMsg=new eventStateMsg();
 

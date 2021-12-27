@@ -9,13 +9,15 @@ export enum statusType{
 }
 @Entity() 
 export  class UserEventAss{   
-    
-   @Column({primary:true,})
+   
+    @PrimaryGeneratedColumn() 
+    id: number; 
+   
    @OneToOne(()=> User)
    @JoinColumn()
    userId: number; 
 
-   @Column({primary:true,})
+   
    @OneToOne(()=> Event)
    @JoinColumn()
    eventId: number; 

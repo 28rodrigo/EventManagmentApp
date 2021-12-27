@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, Double, ColumnTypeUndefinedError,} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, Double, ColumnTypeUndefinedError, OneToOne, JoinColumn,} from "typeorm"; 
 import 'reflect-metadata'
+import { User } from "./User";
 export enum localType{
     PLACE=1,
     ONLINE=2
@@ -16,6 +17,11 @@ export  class Event {
    
    @Column() 
    name: string; 
+
+   @Column()
+   @OneToOne(()=> User)
+   @JoinColumn()
+   ownerId: number; 
    
    @Column() 
    imageUrl: string; 

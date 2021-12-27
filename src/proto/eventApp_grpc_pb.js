@@ -17,6 +17,28 @@ function deserialize_file_createEventInfo(buffer_arg) {
   return eventApp_pb.createEventInfo.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_file_createUserInfo(arg) {
+  if (!(arg instanceof eventApp_pb.createUserInfo)) {
+    throw new Error('Expected argument of type file.createUserInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_createUserInfo(buffer_arg) {
+  return eventApp_pb.createUserInfo.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_entryAddUser(arg) {
+  if (!(arg instanceof eventApp_pb.entryAddUser)) {
+    throw new Error('Expected argument of type file.entryAddUser');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_entryAddUser(buffer_arg) {
+  return eventApp_pb.entryAddUser.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_file_entryGlobalParam(arg) {
   if (!(arg instanceof eventApp_pb.entryGlobalParam)) {
     throw new Error('Expected argument of type file.entryGlobalParam');
@@ -59,6 +81,17 @@ function serialize_file_entryParam(arg) {
 
 function deserialize_file_entryParam(buffer_arg) {
   return eventApp_pb.entryParam.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_entryResponse(arg) {
+  if (!(arg instanceof eventApp_pb.entryResponse)) {
+    throw new Error('Expected argument of type file.entryResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_entryResponse(buffer_arg) {
+  return eventApp_pb.entryResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_file_eventAdminInfo(arg) {
@@ -149,6 +182,28 @@ function deserialize_file_updateEventInfo(buffer_arg) {
   return eventApp_pb.updateEventInfo.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_file_updateUserInfo(arg) {
+  if (!(arg instanceof eventApp_pb.updateUserInfo)) {
+    throw new Error('Expected argument of type file.updateUserInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_updateUserInfo(buffer_arg) {
+  return eventApp_pb.updateUserInfo.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_userStateMsg(arg) {
+  if (!(arg instanceof eventApp_pb.userStateMsg)) {
+    throw new Error('Expected argument of type file.userStateMsg');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_userStateMsg(buffer_arg) {
+  return eventApp_pb.userStateMsg.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // Serviço dedicado para o cliente UTILIZADOR 
 var EventServiceService = exports.EventServiceService = {
@@ -211,12 +266,33 @@ var EventServiceService = exports.EventServiceService = {
 
 exports.EventServiceClient = grpc.makeGenericClientConstructor(EventServiceService);
 // ----------------------------------------------------------------------------------------
-// service UserService{
-// 	//ainda falta isto tudo
-// 	rpc login
-// 	rpc updateUser
-// 	rpc createUser
-// }
+var UserServiceService = exports.UserServiceService = {
+  // rpc login
+createUser: {
+    path: '/file.UserService/createUser',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.createUserInfo,
+    responseType: eventApp_pb.userStateMsg,
+    requestSerialize: serialize_file_createUserInfo,
+    requestDeserialize: deserialize_file_createUserInfo,
+    responseSerialize: serialize_file_userStateMsg,
+    responseDeserialize: deserialize_file_userStateMsg,
+  },
+  updateUser: {
+    path: '/file.UserService/updateUser',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.updateUserInfo,
+    responseType: eventApp_pb.userStateMsg,
+    requestSerialize: serialize_file_updateUserInfo,
+    requestDeserialize: deserialize_file_updateUserInfo,
+    responseSerialize: serialize_file_userStateMsg,
+    responseDeserialize: deserialize_file_userStateMsg,
+  },
+};
+
+exports.UserServiceClient = grpc.makeGenericClientConstructor(UserServiceService);
 // -------------------------------------------------------------------------------------
 var AccessEventServiceService = exports.AccessEventServiceService = {
   getEntryCode: {
@@ -252,7 +328,17 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
     responseSerialize: serialize_file_entryInfo,
     responseDeserialize: deserialize_file_entryInfo,
   },
-  // rpc setEventDevice //isto talvez para mais tarde	
+  addUserToEvent: {
+    path: '/file.AccessEventService/addUserToEvent',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.entryAddUser,
+    responseType: eventApp_pb.entryResponse,
+    requestSerialize: serialize_file_entryAddUser,
+    requestDeserialize: deserialize_file_entryAddUser,
+    responseSerialize: serialize_file_entryResponse,
+    responseDeserialize: deserialize_file_entryResponse,
+  },
 };
 
 exports.AccessEventServiceClient = grpc.makeGenericClientConstructor(AccessEventServiceService);

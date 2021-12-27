@@ -281,6 +281,9 @@ export class createEventInfo extends jspb.Message {
     getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): createEventInfo;
 
+    getUserid(): number;
+    setUserid(value: number): createEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): createEventInfo.AsObject;
@@ -304,6 +307,7 @@ export namespace createEventInfo {
         agerestriction: number,
         startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        userid: number,
     }
 }
 
@@ -347,6 +351,9 @@ export class updateEventInfo extends jspb.Message {
     getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): updateEventInfo;
 
+    getUserid(): number;
+    setUserid(value: number): updateEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): updateEventInfo.AsObject;
@@ -371,6 +378,7 @@ export namespace updateEventInfo {
         agerestriction: number,
         startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        userid: number,
     }
 }
 
@@ -474,6 +482,182 @@ export namespace ocupationResponse {
     export type AsObject = {
         state: boolean,
         ocupationstatsList: Array<ocupation.AsObject>,
+        statusmsg: string,
+    }
+}
+
+export class createUserInfo extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): createUserInfo;
+
+    getName(): string;
+    setName(value: string): createUserInfo;
+
+    getAge(): number;
+    setAge(value: number): createUserInfo;
+
+    getImageurl(): string;
+    setImageurl(value: string): createUserInfo;
+
+    getOrganization(): string;
+    setOrganization(value: string): createUserInfo;
+
+    getJob(): string;
+    setJob(value: string): createUserInfo;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): createUserInfo.AsObject;
+    static toObject(includeInstance: boolean, msg: createUserInfo): createUserInfo.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: createUserInfo, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): createUserInfo;
+    static deserializeBinaryFromReader(message: createUserInfo, reader: jspb.BinaryReader): createUserInfo;
+}
+
+export namespace createUserInfo {
+    export type AsObject = {
+        username: string,
+        name: string,
+        age: number,
+        imageurl: string,
+        organization: string,
+        job: string,
+    }
+}
+
+export class updateUserInfo extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): updateUserInfo;
+
+    getName(): string;
+    setName(value: string): updateUserInfo;
+
+    getAge(): number;
+    setAge(value: number): updateUserInfo;
+
+    getImageurl(): string;
+    setImageurl(value: string): updateUserInfo;
+
+    getOrganization(): string;
+    setOrganization(value: string): updateUserInfo;
+
+    getJob(): string;
+    setJob(value: string): updateUserInfo;
+
+    getId(): number;
+    setId(value: number): updateUserInfo;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): updateUserInfo.AsObject;
+    static toObject(includeInstance: boolean, msg: updateUserInfo): updateUserInfo.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: updateUserInfo, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): updateUserInfo;
+    static deserializeBinaryFromReader(message: updateUserInfo, reader: jspb.BinaryReader): updateUserInfo;
+}
+
+export namespace updateUserInfo {
+    export type AsObject = {
+        username: string,
+        name: string,
+        age: number,
+        imageurl: string,
+        organization: string,
+        job: string,
+        id: number,
+    }
+}
+
+export class userStateMsg extends jspb.Message { 
+    getState(): boolean;
+    setState(value: boolean): userStateMsg;
+
+    getId(): number;
+    setId(value: number): userStateMsg;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): userStateMsg;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): userStateMsg.AsObject;
+    static toObject(includeInstance: boolean, msg: userStateMsg): userStateMsg.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: userStateMsg, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): userStateMsg;
+    static deserializeBinaryFromReader(message: userStateMsg, reader: jspb.BinaryReader): userStateMsg;
+}
+
+export namespace userStateMsg {
+    export type AsObject = {
+        state: boolean,
+        id: number,
+        statusmsg: string,
+    }
+}
+
+export class entryAddUser extends jspb.Message { 
+    getUserid(): number;
+    setUserid(value: number): entryAddUser;
+
+    getEventid(): number;
+    setEventid(value: number): entryAddUser;
+
+    getGuestid(): number;
+    setGuestid(value: number): entryAddUser;
+
+
+    hasExpiredate(): boolean;
+    clearExpiredate(): void;
+    getExpiredate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setExpiredate(value?: google_protobuf_timestamp_pb.Timestamp): entryAddUser;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): entryAddUser.AsObject;
+    static toObject(includeInstance: boolean, msg: entryAddUser): entryAddUser.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: entryAddUser, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): entryAddUser;
+    static deserializeBinaryFromReader(message: entryAddUser, reader: jspb.BinaryReader): entryAddUser;
+}
+
+export namespace entryAddUser {
+    export type AsObject = {
+        userid: number,
+        eventid: number,
+        guestid: number,
+        expiredate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    }
+}
+
+export class entryResponse extends jspb.Message { 
+    getStatus(): boolean;
+    setStatus(value: boolean): entryResponse;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): entryResponse;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): entryResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: entryResponse): entryResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: entryResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): entryResponse;
+    static deserializeBinaryFromReader(message: entryResponse, reader: jspb.BinaryReader): entryResponse;
+}
+
+export namespace entryResponse {
+    export type AsObject = {
+        status: boolean,
         statusmsg: string,
     }
 }

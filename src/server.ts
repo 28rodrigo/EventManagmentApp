@@ -8,7 +8,9 @@ import 'reflect-metadata'
 import AccessEventHandler from './handlers/accessEvent';
 import EventHandler from './handlers/event'
 import FileUploadhandler from './handlers/upload'
+import UserHandler from './handlers/user'
 import { protoIndex } from './proto';
+import { User } from './models/User';
 
 
 protoIndex();
@@ -25,6 +27,7 @@ export const startServer:StartServerType=():void =>{
     server.addService(AccessEventHandler.service,AccessEventHandler.handler)
     server.addService(EventHandler.service,EventHandler.handler)
     server.addService(FileUploadhandler.service,FileUploadhandler.handler)
+    server.addService(UserHandler.service,UserHandler.handler)
 
     server.bindAsync(`0.0.0.0:${port}`,
     grpc.ServerCredentials.createInsecure(),

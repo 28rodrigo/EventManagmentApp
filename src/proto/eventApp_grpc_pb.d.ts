@@ -111,10 +111,61 @@ export class EventServiceClient extends grpc.Client implements IEventServiceClie
     public updateEvent(request: eventApp_pb.updateEventInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.eventStateMsg) => void): grpc.ClientUnaryCall;
 }
 
+interface IUserServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    createUser: IUserServiceService_IcreateUser;
+    updateUser: IUserServiceService_IupdateUser;
+}
+
+interface IUserServiceService_IcreateUser extends grpc.MethodDefinition<eventApp_pb.createUserInfo, eventApp_pb.userStateMsg> {
+    path: "/file.UserService/createUser";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.createUserInfo>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.createUserInfo>;
+    responseSerialize: grpc.serialize<eventApp_pb.userStateMsg>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.userStateMsg>;
+}
+interface IUserServiceService_IupdateUser extends grpc.MethodDefinition<eventApp_pb.updateUserInfo, eventApp_pb.userStateMsg> {
+    path: "/file.UserService/updateUser";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.updateUserInfo>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.updateUserInfo>;
+    responseSerialize: grpc.serialize<eventApp_pb.userStateMsg>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.userStateMsg>;
+}
+
+export const UserServiceService: IUserServiceService;
+
+export interface IUserServiceServer {
+    createUser: grpc.handleUnaryCall<eventApp_pb.createUserInfo, eventApp_pb.userStateMsg>;
+    updateUser: grpc.handleUnaryCall<eventApp_pb.updateUserInfo, eventApp_pb.userStateMsg>;
+}
+
+export interface IUserServiceClient {
+    createUser(request: eventApp_pb.createUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    updateUser(request: eventApp_pb.updateUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    updateUser(request: eventApp_pb.updateUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    updateUser(request: eventApp_pb.updateUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+}
+
+export class UserServiceClient extends grpc.Client implements IUserServiceClient {
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public createUser(request: eventApp_pb.createUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    public createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    public createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    public updateUser(request: eventApp_pb.updateUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    public updateUser(request: eventApp_pb.updateUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+    public updateUser(request: eventApp_pb.updateUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
+}
+
 interface IAccessEventServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     getEntryCode: IAccessEventServiceService_IgetEntryCode;
     getUserInviteLink: IAccessEventServiceService_IgetUserInviteLink;
     getGlobalinviteLink: IAccessEventServiceService_IgetGlobalinviteLink;
+    addUserToEvent: IAccessEventServiceService_IaddUserToEvent;
 }
 
 interface IAccessEventServiceService_IgetEntryCode extends grpc.MethodDefinition<eventApp_pb.entryParam, eventApp_pb.entryInfo> {
@@ -144,6 +195,15 @@ interface IAccessEventServiceService_IgetGlobalinviteLink extends grpc.MethodDef
     responseSerialize: grpc.serialize<eventApp_pb.entryInfo>;
     responseDeserialize: grpc.deserialize<eventApp_pb.entryInfo>;
 }
+interface IAccessEventServiceService_IaddUserToEvent extends grpc.MethodDefinition<eventApp_pb.entryAddUser, eventApp_pb.entryResponse> {
+    path: "/file.AccessEventService/addUserToEvent";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.entryAddUser>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.entryAddUser>;
+    responseSerialize: grpc.serialize<eventApp_pb.entryResponse>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.entryResponse>;
+}
 
 export const AccessEventServiceService: IAccessEventServiceService;
 
@@ -151,6 +211,7 @@ export interface IAccessEventServiceServer {
     getEntryCode: grpc.handleUnaryCall<eventApp_pb.entryParam, eventApp_pb.entryInfo>;
     getUserInviteLink: grpc.handleUnaryCall<eventApp_pb.entryGuestParam, eventApp_pb.entryInfo>;
     getGlobalinviteLink: grpc.handleUnaryCall<eventApp_pb.entryGlobalParam, eventApp_pb.entryInfo>;
+    addUserToEvent: grpc.handleUnaryCall<eventApp_pb.entryAddUser, eventApp_pb.entryResponse>;
 }
 
 export interface IAccessEventServiceClient {
@@ -163,6 +224,9 @@ export interface IAccessEventServiceClient {
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
+    addUserToEvent(request: eventApp_pb.entryAddUser, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
 }
 
 export class AccessEventServiceClient extends grpc.Client implements IAccessEventServiceClient {
@@ -176,6 +240,9 @@ export class AccessEventServiceClient extends grpc.Client implements IAccessEven
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
+    public addUserToEvent(request: eventApp_pb.entryAddUser, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
 }
 
 interface IFileUploaderServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {

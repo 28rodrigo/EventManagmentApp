@@ -5,13 +5,15 @@ import 'reflect-metadata'
 
 @Entity() 
 export  class UserCredentials {   
+
+    @PrimaryGeneratedColumn() 
+    id: number; 
     
-    @Column({primary:true,})
     @OneToOne(()=> Event)
     @JoinColumn()
     eventId: number; 
 
-    @Column({primary:true,})
+
    @OneToOne(()=> User)
    @JoinColumn()
    userId: number; 
