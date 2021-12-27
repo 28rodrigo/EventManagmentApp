@@ -178,12 +178,12 @@ export class AccessEventServiceClient extends grpc.Client implements IAccessEven
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
 }
 
-interface IUploadServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
-    uploadImage: IUploadServiceService_IuploadImage;
+interface IFileUploaderServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    uploadFile: IFileUploaderServiceService_IuploadFile;
 }
 
-interface IUploadServiceService_IuploadImage extends grpc.MethodDefinition<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse> {
-    path: "/file.UploadService/uploadImage";
+interface IFileUploaderServiceService_IuploadFile extends grpc.MethodDefinition<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse> {
+    path: "/file.FileUploaderService/uploadFile";
     requestStream: true;
     responseStream: false;
     requestSerialize: grpc.serialize<eventApp_pb.fileUploadRequest>;
@@ -192,23 +192,23 @@ interface IUploadServiceService_IuploadImage extends grpc.MethodDefinition<event
     responseDeserialize: grpc.deserialize<eventApp_pb.fileUploadResponse>;
 }
 
-export const UploadServiceService: IUploadServiceService;
+export const FileUploaderServiceService: IFileUploaderServiceService;
 
-export interface IUploadServiceServer {
-    uploadImage: handleClientStreamingCall<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse>;
+export interface IFileUploaderServiceServer {
+    uploadFile: handleClientStreamingCall<eventApp_pb.fileUploadRequest, eventApp_pb.fileUploadResponse>;
 }
 
-export interface IUploadServiceClient {
-    uploadImage(callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    uploadImage(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    uploadImage(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    uploadImage(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+export interface IFileUploaderServiceClient {
+    uploadFile(callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    uploadFile(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    uploadFile(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    uploadFile(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
 }
 
-export class UploadServiceClient extends grpc.Client implements IUploadServiceClient {
+export class FileUploaderServiceClient extends grpc.Client implements IFileUploaderServiceClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
-    public uploadImage(callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    public uploadImage(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    public uploadImage(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
-    public uploadImage(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    public uploadFile(callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    public uploadFile(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    public uploadFile(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
+    public uploadFile(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.fileUploadResponse) => void): grpc.ClientWritableStream<eventApp_pb.fileUploadRequest>;
 }

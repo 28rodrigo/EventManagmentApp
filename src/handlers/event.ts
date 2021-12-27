@@ -5,6 +5,7 @@ import {EventServiceService,IEventServiceServer } from '../proto/eventApp_grpc_p
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 import { Event } from '../models/Event';
 import { getRepository } from 'typeorm';
+import { start } from 'repl';
 
 class EventHandler implements IEventServiceServer
 {
@@ -28,7 +29,18 @@ class EventHandler implements IEventServiceServer
             newE.longitude=call.request.getLongitude();
             newE.eventLocal=call.request.getEventplace();
             newE.eventType=call.request.getEventtype();
-            newE.AgeRestrition=18; //tenho que alterar proto buffer
+            newE.AgeRestrition=call.request.getAgerestriction()
+            var startDate=call.request.getStartdate()?.toDate()
+            var endDate=call.request.getEnddate()?.toDate()
+            if(startDate!=undefined && endDate!=undefined)
+            {
+                newE.startDate=startDate;
+                newE.endDate=endDate;
+            }else{
+                newE.startDate=new Date()
+                newE.endDate=new Date()
+            }
+            
            
    
             newE= await getRepository(Event).save(newE);
@@ -40,9 +52,16 @@ class EventHandler implements IEventServiceServer
 
            reply.setId(newE.id)
            reply.setState(true);
+           reply.setStatusmsg("OK")
            callback(null,reply);
-        }catch{
+        }catch(e){
             const reply:eventStateMsg=new eventStateMsg();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
 
             reply.setId(0)
             reply.setState(false);
@@ -61,7 +80,17 @@ class EventHandler implements IEventServiceServer
             newE.longitude=call.request.getLongitude();
             newE.eventLocal=call.request.getEventplace();
             newE.eventType=call.request.getEventtype();
-            newE.AgeRestrition=18; //tenho que alterar proto buffer
+            newE.AgeRestrition=call.request.getAgerestriction();
+            var startDate=call.request.getStartdate()?.toDate()
+            var endDate=call.request.getEnddate()?.toDate()
+            if(startDate!=undefined && endDate!=undefined)
+            {
+                newE.startDate=startDate;
+                newE.endDate=endDate;
+            }else{
+                newE.startDate=new Date()
+                newE.endDate=new Date()
+            }
            
    
             var res= await getRepository(Event).update(newE.id,newE);
@@ -71,6 +100,7 @@ class EventHandler implements IEventServiceServer
                 {
                     const reply:eventStateMsg=new eventStateMsg();
                     reply.setId(newE.id)
+                    reply.setStatusmsg("OK")
                     reply.setState(true);
                     callback(null,reply);
                 }
@@ -78,11 +108,18 @@ class EventHandler implements IEventServiceServer
                 const reply:eventStateMsg=new eventStateMsg();
                     reply.setId(newE.id)
                     reply.setState(false);
+                    reply.setStatusmsg(res.raw)
                     callback(null,reply);
             }
-        }catch{
+        }catch(e){
             const reply:eventStateMsg=new eventStateMsg();
 
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
             reply.setId(0)
             reply.setState(false);
             callback(null,reply);
@@ -106,14 +143,30 @@ class EventHandler implements IEventServiceServer
                 reply.setEventtype(event.eventType);
                 reply.setStatisticsdate(statDate);
                 reply.setOcupationpercentage((event.nParticipants*event.nActiveParticipants)*100);
+                reply.setAgerestriction(event.AgeRestrition)
+                var startDate=new Timestamp()
+                startDate.fromDate(event.startDate)
+                var endDate= new Timestamp()
+                endDate.fromDate(event.endDate)
+                reply.setStartdate(startDate)
+                reply.setEnddate(endDate)
+                reply.setStatusmsg('OK')
+                reply.setEventid(event.id)
                 callback(null,reply);
             }else{
                 const reply:eventUserInfo=new eventUserInfo();
                 reply.setState(false);
+                reply.setStatusmsg("Event not found!")
                 callback(null,reply);
             }
-        }catch{
+        }catch(e){
             const reply:eventUserInfo=new eventUserInfo();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
             reply.setState(false);
             callback(null,reply);
         }
@@ -138,8 +191,8 @@ class EventHandler implements IEventServiceServer
                 var exuser=new user;
                 exuser.setUsername("rodrigo")
                 exuser.setName("Rodrigo Pereira")
-                exuser.setOrganization("UTAD")
-                exuser.setJob("student")
+                //exuser.setOrganization("UTAD")
+                //exuser.setJob("student")
                 exuser.setImgurl("https://avatars.githubusercontent.com/u/66921613?v=4")
                 reply.setParticipantsList([exuser])
                 reply.setStatisticsdate(statDate);
@@ -147,14 +200,30 @@ class EventHandler implements IEventServiceServer
                 reply.setNparticipants(event.nParticipants);
                 reply.setStatisticsdate(statDate);
                 reply.setOcupationpercentage((event.nParticipants*event.nActiveParticipants)*100);
+                reply.setAgerestriction(event.AgeRestrition)
+                var startDate=new Timestamp()
+                startDate.fromDate(event.startDate)
+                var endDate= new Timestamp()
+                endDate.fromDate(event.endDate)
+                reply.setStartdate(startDate)
+                reply.setEnddate(endDate)
+                reply.setStatusmsg('OK')
+                reply.setEventid(event.id)
                 callback(null,reply);
             }else{
                 const reply:eventAdminInfo=new eventAdminInfo();
                 reply.setState(false);
+                reply.setStatusmsg("Event not found!")
                 callback(null,reply);
             }
-        }catch{
+        }catch(e){
             const reply:eventAdminInfo=new eventAdminInfo();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
             reply.setState(false);
             callback(null,reply);
         }
@@ -177,16 +246,24 @@ class EventHandler implements IEventServiceServer
                 ocupationstat.setNinvites(200)
 
                 reply.setOcupationstatsList([ocupationstat]);
+                reply.setStatusmsg("OK")
                 callback(null,reply)
             }else
-            {
+            {   
                 const reply:ocupationResponse=new ocupationResponse()
                 reply.setState(false);
+                reply.setStatusmsg("Event not found!")
                 callback(null,reply)
             }
 
-        }catch{
+        }catch(e){
             const reply:ocupationResponse=new ocupationResponse()
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
             reply.setState(false);
             callback(null,reply)
         }

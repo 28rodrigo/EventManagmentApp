@@ -256,9 +256,9 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
 };
 
 exports.AccessEventServiceClient = grpc.makeGenericClientConstructor(AccessEventServiceService);
-var UploadServiceService = exports.UploadServiceService = {
-  uploadImage: {
-    path: '/file.UploadService/uploadImage',
+var FileUploaderServiceService = exports.FileUploaderServiceService = {
+  uploadFile: {
+    path: '/file.FileUploaderService/uploadFile',
     requestStream: true,
     responseStream: false,
     requestType: eventApp_pb.fileUploadRequest,
@@ -270,4 +270,4 @@ var UploadServiceService = exports.UploadServiceService = {
   },
 };
 
-exports.UploadServiceClient = grpc.makeGenericClientConstructor(UploadServiceService);
+exports.FileUploaderServiceClient = grpc.makeGenericClientConstructor(FileUploaderServiceService);

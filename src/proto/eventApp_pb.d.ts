@@ -36,6 +36,9 @@ export class eventStateMsg extends jspb.Message {
     getId(): number;
     setId(value: number): eventStateMsg;
 
+    getStatusmsg(): string;
+    setStatusmsg(value: string): eventStateMsg;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventStateMsg.AsObject;
@@ -51,6 +54,7 @@ export namespace eventStateMsg {
     export type AsObject = {
         state: boolean,
         id: number,
+        statusmsg: string,
     }
 }
 
@@ -88,6 +92,27 @@ export class eventUserInfo extends jspb.Message {
     getOcupationpercentage(): number;
     setOcupationpercentage(value: number): eventUserInfo;
 
+    getStatusmsg(): string;
+    setStatusmsg(value: string): eventUserInfo;
+
+    getEventid(): number;
+    setEventid(value: number): eventUserInfo;
+
+    getAgerestriction(): number;
+    setAgerestriction(value: number): eventUserInfo;
+
+
+    hasStartdate(): boolean;
+    clearStartdate(): void;
+    getStartdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setStartdate(value?: google_protobuf_timestamp_pb.Timestamp): eventUserInfo;
+
+
+    hasEnddate(): boolean;
+    clearEnddate(): void;
+    getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): eventUserInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventUserInfo.AsObject;
@@ -111,6 +136,11 @@ export namespace eventUserInfo {
         eventtype: number,
         statisticsdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         ocupationpercentage: number,
+        statusmsg: string,
+        eventid: number,
+        agerestriction: number,
+        startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 }
 
@@ -159,6 +189,27 @@ export class eventAdminInfo extends jspb.Message {
     getOcupationpercentage(): number;
     setOcupationpercentage(value: number): eventAdminInfo;
 
+    getStatusmsg(): string;
+    setStatusmsg(value: string): eventAdminInfo;
+
+    getEventid(): number;
+    setEventid(value: number): eventAdminInfo;
+
+    getAgerestriction(): number;
+    setAgerestriction(value: number): eventAdminInfo;
+
+
+    hasStartdate(): boolean;
+    clearStartdate(): void;
+    getStartdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setStartdate(value?: google_protobuf_timestamp_pb.Timestamp): eventAdminInfo;
+
+
+    hasEnddate(): boolean;
+    clearEnddate(): void;
+    getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): eventAdminInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): eventAdminInfo.AsObject;
@@ -185,6 +236,11 @@ export namespace eventAdminInfo {
         nparticipants: number,
         statisticsdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         ocupationpercentage: number,
+        statusmsg: string,
+        eventid: number,
+        agerestriction: number,
+        startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 }
 
@@ -210,6 +266,21 @@ export class createEventInfo extends jspb.Message {
     getEventtype(): number;
     setEventtype(value: number): createEventInfo;
 
+    getAgerestriction(): number;
+    setAgerestriction(value: number): createEventInfo;
+
+
+    hasStartdate(): boolean;
+    clearStartdate(): void;
+    getStartdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setStartdate(value?: google_protobuf_timestamp_pb.Timestamp): createEventInfo;
+
+
+    hasEnddate(): boolean;
+    clearEnddate(): void;
+    getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): createEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): createEventInfo.AsObject;
@@ -230,6 +301,9 @@ export namespace createEventInfo {
         longitude: string,
         eventplace: number,
         eventtype: number,
+        agerestriction: number,
+        startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 }
 
@@ -258,6 +332,21 @@ export class updateEventInfo extends jspb.Message {
     getEventtype(): number;
     setEventtype(value: number): updateEventInfo;
 
+    getAgerestriction(): number;
+    setAgerestriction(value: number): updateEventInfo;
+
+
+    hasStartdate(): boolean;
+    clearStartdate(): void;
+    getStartdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setStartdate(value?: google_protobuf_timestamp_pb.Timestamp): updateEventInfo;
+
+
+    hasEnddate(): boolean;
+    clearEnddate(): void;
+    getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): updateEventInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): updateEventInfo.AsObject;
@@ -279,21 +368,21 @@ export namespace updateEventInfo {
         longitude: string,
         eventplace: number,
         eventtype: number,
+        agerestriction: number,
+        startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 }
 
 export class user extends jspb.Message { 
+    getId(): number;
+    setId(value: number): user;
+
     getUsername(): string;
     setUsername(value: string): user;
 
     getName(): string;
     setName(value: string): user;
-
-    getOrganization(): string;
-    setOrganization(value: string): user;
-
-    getJob(): string;
-    setJob(value: string): user;
 
     getImgurl(): string;
     setImgurl(value: string): user;
@@ -311,10 +400,9 @@ export class user extends jspb.Message {
 
 export namespace user {
     export type AsObject = {
+        id: number,
         username: string,
         name: string,
-        organization: string,
-        job: string,
         imgurl: string,
     }
 }
@@ -368,6 +456,9 @@ export class ocupationResponse extends jspb.Message {
     setOcupationstatsList(value: Array<ocupation>): ocupationResponse;
     addOcupationstats(value?: ocupation, index?: number): ocupation;
 
+    getStatusmsg(): string;
+    setStatusmsg(value: string): ocupationResponse;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ocupationResponse.AsObject;
@@ -383,6 +474,7 @@ export namespace ocupationResponse {
     export type AsObject = {
         state: boolean,
         ocupationstatsList: Array<ocupation.AsObject>,
+        statusmsg: string,
     }
 }
 
@@ -475,6 +567,12 @@ export class entryInfo extends jspb.Message {
     getExpiredate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setExpiredate(value?: google_protobuf_timestamp_pb.Timestamp): entryInfo;
 
+    getStatus(): boolean;
+    setStatus(value: boolean): entryInfo;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): entryInfo;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): entryInfo.AsObject;
@@ -490,72 +588,28 @@ export namespace entryInfo {
     export type AsObject = {
         keycode: string,
         expiredate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-    }
-}
-
-export class metaData extends jspb.Message { 
-    getName(): string;
-    setName(value: string): metaData;
-
-    getType(): string;
-    setType(value: string): metaData;
-
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): metaData.AsObject;
-    static toObject(includeInstance: boolean, msg: metaData): metaData.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: metaData, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): metaData;
-    static deserializeBinaryFromReader(message: metaData, reader: jspb.BinaryReader): metaData;
-}
-
-export namespace metaData {
-    export type AsObject = {
-        name: string,
-        type: string,
-    }
-}
-
-export class file extends jspb.Message { 
-    getContent(): Uint8Array | string;
-    getContent_asU8(): Uint8Array;
-    getContent_asB64(): string;
-    setContent(value: Uint8Array | string): file;
-
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): file.AsObject;
-    static toObject(includeInstance: boolean, msg: file): file.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: file, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): file;
-    static deserializeBinaryFromReader(message: file, reader: jspb.BinaryReader): file;
-}
-
-export namespace file {
-    export type AsObject = {
-        content: Uint8Array | string,
+        status: boolean,
+        statusmsg: string,
     }
 }
 
 export class fileUploadRequest extends jspb.Message { 
 
-    hasMetadata(): boolean;
-    clearMetadata(): void;
-    getMetadata(): metaData | undefined;
-    setMetadata(value?: metaData): fileUploadRequest;
+    hasName(): boolean;
+    clearName(): void;
+    getName(): string;
+    setName(value: string): fileUploadRequest;
 
 
-    hasFile(): boolean;
-    clearFile(): void;
-    getFile(): file | undefined;
-    setFile(value?: file): fileUploadRequest;
+    hasChunk(): boolean;
+    clearChunk(): void;
+    getChunk(): Uint8Array | string;
+    getChunk_asU8(): Uint8Array;
+    getChunk_asB64(): string;
+    setChunk(value: Uint8Array | string): fileUploadRequest;
 
 
-    getRequestCase(): fileUploadRequest.RequestCase;
+    getDataCase(): fileUploadRequest.DataCase;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): fileUploadRequest.AsObject;
@@ -569,30 +623,27 @@ export class fileUploadRequest extends jspb.Message {
 
 export namespace fileUploadRequest {
     export type AsObject = {
-        metadata?: metaData.AsObject,
-        file?: file.AsObject,
+        name: string,
+        chunk: Uint8Array | string,
     }
 
-    export enum RequestCase {
-        REQUEST_NOT_SET = 0,
+    export enum DataCase {
+        DATA_NOT_SET = 0,
     
-    METADATA = 1,
+    NAME = 1,
 
-    FILE = 2,
+    CHUNK = 2,
 
     }
 
 }
 
 export class fileUploadResponse extends jspb.Message { 
+    getId(): string;
+    setId(value: string): fileUploadResponse;
+
     getName(): string;
     setName(value: string): fileUploadResponse;
-
-    getImgurl(): string;
-    setImgurl(value: string): fileUploadResponse;
-
-    getStatus(): status;
-    setStatus(value: status): fileUploadResponse;
 
 
     serializeBinary(): Uint8Array;
@@ -607,15 +658,7 @@ export class fileUploadResponse extends jspb.Message {
 
 export namespace fileUploadResponse {
     export type AsObject = {
+        id: string,
         name: string,
-        imgurl: string,
-        status: status,
     }
-}
-
-export enum status {
-    PENDING = 0,
-    IN_PROGRESS = 1,
-    SUCCESS = 2,
-    FAILED = 3,
 }

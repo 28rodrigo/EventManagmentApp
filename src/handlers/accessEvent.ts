@@ -6,14 +6,14 @@ import  {Person} from './../models/Person'
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
 class AccessEventHandler implements IAccessEventServiceServer{
-    getUserInviteLink: grpc.handleUnaryCall<entryGuestParam, entryInfo>;
-    getGlobalinviteLink: grpc.handleUnaryCall<entryGlobalParam, entryInfo>;
+    //getUserInviteLink: grpc.handleUnaryCall<entryGuestParam, entryInfo>;
+    //getGlobalinviteLink: grpc.handleUnaryCall<entryGlobalParam, entryInfo>;
 /**
  * @param call
  * @param callback
  *  */   
     
-    //  sayHello: grpc.handleUnaryCall<HelloRequest, HelloReply>;
+    //  falta fazer isto tmb
     getEntryCode =async (call:grpc.ServerUnaryCall<entryParam,entryInfo>,callback:grpc.sendUnaryData<entryInfo>):Promise<void> =>{
         
         // var newP=new Person()
@@ -28,8 +28,21 @@ class AccessEventHandler implements IAccessEventServiceServer{
         reply.setKeycode("123456");
         callback(null,reply);
     }
- 
 
+     getGlobalinviteLink =async (call:grpc.ServerUnaryCall<entryGlobalParam, entryInfo>,callback:grpc.sendUnaryData<entryInfo>):Promise<void> =>{
+        //verificar se o user é owner do evento
+        //gerar codigo 
+        //guardar codigo na db
+        //enviar mensagem
+    }
+    getUserInviteLink =async (call:grpc.ServerUnaryCall<entryGuestParam, entryInfo>,callback:grpc.sendUnaryData<entryInfo>):Promise<void> =>{
+        //verificar se o userid é owner do evento
+        //verificar se guestid está nos participantes do evento
+        //gerar link
+        //guardar link na tabela temp
+        //enviar mensagem
+
+    }
 
 }   
 export default{

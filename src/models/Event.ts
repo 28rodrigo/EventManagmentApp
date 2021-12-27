@@ -47,4 +47,10 @@ export  class Event {
    @Column({nullable:true}) 
     AgeRestrition: number;
 
+    @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })  
+    startDate: Date;
+
+    @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })  
+    endDate: Date;
+
 }   

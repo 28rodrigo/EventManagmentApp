@@ -24,6 +24,7 @@ message infoId {
 message eventStateMsg{
 	bool state=1;
 	int32 id=2;
+	string statusMsg=3;
 }
 
 message eventUserInfo {
@@ -37,6 +38,11 @@ message eventUserInfo {
 	int32 eventType=8;
 	google.protobuf.Timestamp statisticsDate=9;
 	float ocupationPercentage=10;
+	string statusMsg=11;
+	int32 eventId=12;
+	int32 ageRestriction=13;
+	google.protobuf.Timestamp startDate=14;
+	google.protobuf.Timestamp endDate=15;
 }
 message eventAdminInfo {
 	bool state = 1;
@@ -52,6 +58,11 @@ message eventAdminInfo {
 	int32 nParticipants=11;
 	google.protobuf.Timestamp statisticsDate=12;
 	float ocupationPercentage=13;
+	string statusMsg=14;
+	int32 eventId=15;
+	int32 ageRestriction=16;
+	google.protobuf.Timestamp startDate=17;
+	google.protobuf.Timestamp endDate=18;
 	
 }
 message createEventInfo {
@@ -62,6 +73,9 @@ message createEventInfo {
 	string longitude=5;
 	int32 eventPlace=6;
 	int32 eventType=7;
+	int32 ageRestriction=8;
+	google.protobuf.Timestamp startDate=9;
+	google.protobuf.Timestamp endDate=10;
 }
 message updateEventInfo {
 	int32 id=1;
@@ -72,14 +86,16 @@ message updateEventInfo {
 	string longitude=6;
 	int32 eventPlace=7;
 	int32 eventType=8;
+	int32 ageRestriction=9;
+	google.protobuf.Timestamp startDate=10;
+	google.protobuf.Timestamp endDate=11;
 }
 
 message user{
-	string username=1;
-	string name=2;
-	string organization=3;
-	string job=4;
-	string imgUrl=5;
+	int32 id=1;
+	string username=2;
+	string name=3;
+	string imgUrl=4;
 }
 
 message ocupation{
@@ -92,7 +108,8 @@ message ocupation{
 
 message ocupationResponse{
 	bool state=1;
-	repeated ocupation ocupationStats=14;
+	repeated ocupation ocupationStats=2;
+	string statusMsg=3;
 }
 //----------------------------------------------------------------------------------------
 // service UserService{
@@ -127,38 +144,23 @@ message entryGlobalParam{
 message entryInfo{
 	string keyCode=1;
 	google.protobuf.Timestamp expireDate=2;
+	bool status=3;
+	string statusMsg=4;
 }
 
 //-----------------------------------------------------------------------------------
-message metaData {
-  string name = 1;
-  string type = 2;
-}
-
-message file {
-  bytes content = 1;
-}
-
-enum status {
-  PENDING = 0;
-  IN_PROGRESS = 1;
-  SUCCESS = 2;
-  FAILED = 3;
-}
-
 message fileUploadRequest {
-  oneof request {
-    metaData metadata = 1;
-    file file = 2;
-  }
+    oneof data {
+        string name = 1;
+        bytes chunk = 2;
+    };
 }
 
 message fileUploadResponse {
-  string name = 1;
-  string imgUrl=2;
-  status status = 3;
+    string id = 1;
+    string name = 2;
 }
 
-service UploadService{
-	rpc uploadImage(stream fileUploadRequest) returns (fileUploadResponse);
+service FileUploaderService {
+    rpc uploadFile(stream fileUploadRequest) returns (fileUploadResponse) {}
 }

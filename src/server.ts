@@ -7,6 +7,7 @@ import 'reflect-metadata'
 
 import AccessEventHandler from './handlers/accessEvent';
 import EventHandler from './handlers/event'
+import FileUploadhandler from './handlers/upload'
 import { protoIndex } from './proto';
 
 
@@ -23,6 +24,7 @@ export const startServer:StartServerType=():void =>{
     //registar aqui todo os handlers
     server.addService(AccessEventHandler.service,AccessEventHandler.handler)
     server.addService(EventHandler.service,EventHandler.handler)
+    server.addService(FileUploadhandler.service,FileUploadhandler.handler)
 
     server.bindAsync(`0.0.0.0:${port}`,
     grpc.ServerCredentials.createInsecure(),
