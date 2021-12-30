@@ -166,6 +166,7 @@ interface IAccessEventServiceService extends grpc.ServiceDefinition<grpc.Untyped
     getUserInviteLink: IAccessEventServiceService_IgetUserInviteLink;
     getGlobalinviteLink: IAccessEventServiceService_IgetGlobalinviteLink;
     addUserToEvent: IAccessEventServiceService_IaddUserToEvent;
+    validateKeycode: IAccessEventServiceService_IvalidateKeycode;
 }
 
 interface IAccessEventServiceService_IgetEntryCode extends grpc.MethodDefinition<eventApp_pb.entryParam, eventApp_pb.entryInfo> {
@@ -204,6 +205,15 @@ interface IAccessEventServiceService_IaddUserToEvent extends grpc.MethodDefiniti
     responseSerialize: grpc.serialize<eventApp_pb.entryResponse>;
     responseDeserialize: grpc.deserialize<eventApp_pb.entryResponse>;
 }
+interface IAccessEventServiceService_IvalidateKeycode extends grpc.MethodDefinition<eventApp_pb.entryInfoRequest, eventApp_pb.entryValidation> {
+    path: "/file.AccessEventService/validateKeycode";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.entryInfoRequest>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.entryInfoRequest>;
+    responseSerialize: grpc.serialize<eventApp_pb.entryValidation>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.entryValidation>;
+}
 
 export const AccessEventServiceService: IAccessEventServiceService;
 
@@ -212,6 +222,7 @@ export interface IAccessEventServiceServer {
     getUserInviteLink: grpc.handleUnaryCall<eventApp_pb.entryGuestParam, eventApp_pb.entryInfo>;
     getGlobalinviteLink: grpc.handleUnaryCall<eventApp_pb.entryGlobalParam, eventApp_pb.entryInfo>;
     addUserToEvent: grpc.handleUnaryCall<eventApp_pb.entryAddUser, eventApp_pb.entryResponse>;
+    validateKeycode: grpc.handleUnaryCall<eventApp_pb.entryInfoRequest, eventApp_pb.entryValidation>;
 }
 
 export interface IAccessEventServiceClient {
@@ -227,6 +238,9 @@ export interface IAccessEventServiceClient {
     addUserToEvent(request: eventApp_pb.entryAddUser, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    validateKeycode(request: eventApp_pb.entryInfoRequest, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
+    validateKeycode(request: eventApp_pb.entryInfoRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
+    validateKeycode(request: eventApp_pb.entryInfoRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
 }
 
 export class AccessEventServiceClient extends grpc.Client implements IAccessEventServiceClient {
@@ -243,6 +257,9 @@ export class AccessEventServiceClient extends grpc.Client implements IAccessEven
     public addUserToEvent(request: eventApp_pb.entryAddUser, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     public addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     public addUserToEvent(request: eventApp_pb.entryAddUser, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public validateKeycode(request: eventApp_pb.entryInfoRequest, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
+    public validateKeycode(request: eventApp_pb.entryInfoRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
+    public validateKeycode(request: eventApp_pb.entryInfoRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryValidation) => void): grpc.ClientUnaryCall;
 }
 
 interface IFileUploaderServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {

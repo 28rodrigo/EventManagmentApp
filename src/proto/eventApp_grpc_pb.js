@@ -72,6 +72,17 @@ function deserialize_file_entryInfo(buffer_arg) {
   return eventApp_pb.entryInfo.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_file_entryInfoRequest(arg) {
+  if (!(arg instanceof eventApp_pb.entryInfoRequest)) {
+    throw new Error('Expected argument of type file.entryInfoRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_entryInfoRequest(buffer_arg) {
+  return eventApp_pb.entryInfoRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_file_entryParam(arg) {
   if (!(arg instanceof eventApp_pb.entryParam)) {
     throw new Error('Expected argument of type file.entryParam');
@@ -92,6 +103,17 @@ function serialize_file_entryResponse(arg) {
 
 function deserialize_file_entryResponse(buffer_arg) {
   return eventApp_pb.entryResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_entryValidation(arg) {
+  if (!(arg instanceof eventApp_pb.entryValidation)) {
+    throw new Error('Expected argument of type file.entryValidation');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_entryValidation(buffer_arg) {
+  return eventApp_pb.entryValidation.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_file_eventAdminInfo(arg) {
@@ -339,6 +361,18 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
     responseSerialize: serialize_file_entryResponse,
     responseDeserialize: deserialize_file_entryResponse,
   },
+  validateKeycode: {
+    path: '/file.AccessEventService/validateKeycode',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.entryInfoRequest,
+    responseType: eventApp_pb.entryValidation,
+    requestSerialize: serialize_file_entryInfoRequest,
+    requestDeserialize: deserialize_file_entryInfoRequest,
+    responseSerialize: serialize_file_entryValidation,
+    responseDeserialize: deserialize_file_entryValidation,
+  },
+  // rpc setEventDevice //isto talvez para mais tarde	
 };
 
 exports.AccessEventServiceClient = grpc.makeGenericClientConstructor(AccessEventServiceService);

@@ -601,6 +601,68 @@ export namespace userStateMsg {
     }
 }
 
+export class entryInfoRequest extends jspb.Message { 
+    getKeycode(): string;
+    setKeycode(value: string): entryInfoRequest;
+
+    getUserid(): number;
+    setUserid(value: number): entryInfoRequest;
+
+    getGuestid(): number;
+    setGuestid(value: number): entryInfoRequest;
+
+    getEventid(): number;
+    setEventid(value: number): entryInfoRequest;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): entryInfoRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: entryInfoRequest): entryInfoRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: entryInfoRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): entryInfoRequest;
+    static deserializeBinaryFromReader(message: entryInfoRequest, reader: jspb.BinaryReader): entryInfoRequest;
+}
+
+export namespace entryInfoRequest {
+    export type AsObject = {
+        keycode: string,
+        userid: number,
+        guestid: number,
+        eventid: number,
+    }
+}
+
+export class entryValidation extends jspb.Message { 
+    getStatus(): boolean;
+    setStatus(value: boolean): entryValidation;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): entryValidation;
+
+    getValidating(): boolean;
+    setValidating(value: boolean): entryValidation;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): entryValidation.AsObject;
+    static toObject(includeInstance: boolean, msg: entryValidation): entryValidation.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: entryValidation, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): entryValidation;
+    static deserializeBinaryFromReader(message: entryValidation, reader: jspb.BinaryReader): entryValidation;
+}
+
+export namespace entryValidation {
+    export type AsObject = {
+        status: boolean,
+        statusmsg: string,
+        validating: boolean,
+    }
+}
+
 export class entryAddUser extends jspb.Message { 
     getUserid(): number;
     setUserid(value: number): entryAddUser;

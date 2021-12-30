@@ -148,8 +148,19 @@ service AccessEventService{
 	rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
 	rpc getGlobalinviteLink( entryGlobalParam)returns(entryInfo);
 	rpc addUserToEvent(entryAddUser)returns(entryResponse);
-
+	rpc validateKeycode(entryInfoRequest)returns(entryValidation);
 	// rpc setEventDevice //isto talvez para mais tarde	
+}
+message entryInfoRequest{
+	string keyCode=1;
+	int32 userId=2;
+	int32 guestId=3;
+	int32 eventId=4;
+}
+message entryValidation{
+	bool status=1;
+	string statusMsg=2;
+	bool validating=3;
 }
 message entryAddUser{
 	int32 userId=1;

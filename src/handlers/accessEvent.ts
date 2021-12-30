@@ -1,5 +1,5 @@
 import * as grpc from '@grpc/grpc-js';
-import { entryParam,entryInfo, entryGlobalParam, entryGuestParam, entryAddUser, entryResponse} from '../proto/eventApp_pb';
+import { entryParam,entryInfo, entryGlobalParam, entryGuestParam, entryAddUser, entryResponse, entryInfoRequest, entryValidation} from '../proto/eventApp_pb';
 import {AccessEventServiceService,IAccessEventServiceServer } from '../proto/eventApp_grpc_pb';
 import { getConnection, getConnectionManager, getRepository } from 'typeorm';
 import  {Person} from './../models/Person'
@@ -11,6 +11,7 @@ import { UserCredentials } from '../models/UserCredentials';
 import { isUndefined } from 'util';
 import { Event } from '../models/Event';
 class AccessEventHandler implements IAccessEventServiceServer{
+    //validateKeycode: grpc.handleUnaryCall<entryInfoRequest, entryValidation>;
     //addUserToEvent: grpc.handleUnaryCall<entryAddUser, entryResponse>;
     //getUserInviteLink: grpc.handleUnaryCall<entryGuestParam, entryInfo>;
     //getGlobalinviteLink: grpc.handleUnaryCall<entryGlobalParam, entryInfo>;
@@ -18,7 +19,59 @@ class AccessEventHandler implements IAccessEventServiceServer{
  * @param call
  * @param callback
  *  */   
-    
+ validateKeycode =async (call:grpc.ServerUnaryCall<entryInfoRequest, entryValidation>,callback:grpc.sendUnaryData<entryValidation>):Promise<void> =>{
+    try{
+        const reply =new entryValidation()
+        if(await getRepository(Event).count({where:{id:call.request.getEventid(),ownerId:call.request.getUserid()}})!=1)
+        {
+            reply.setStatus(false)
+            reply.setStatusmsg("Permission denied!");
+            callback(null,reply)
+        }else{
+            const usercred=await getRepository(UserCredentials).findOne({where:{eventId:call.request.getEventid(),userId:call.request.getGuestid()}})
+
+            if(usercred!=undefined)
+            {
+                var expDate=usercred.date
+                if(expDate>new Date())
+                {
+                    if(call.request.getKeycode()!=usercred.keySecret)
+                    {
+                        reply.setStatus(true)
+                        reply.setValidating(false)
+                        reply.setStatusmsg("Not have access!");
+                        callback(null,reply)
+                    }else{
+                        reply.setStatus(true)
+                        reply.setValidating(true)
+                        reply.setStatusmsg("OK");
+                        callback(null,reply)
+                    }
+                }else{
+                    reply.setStatus(true)
+                    reply.setValidating(false)
+                    reply.setStatusmsg("Keycode expired!");
+                    callback(null,reply)
+                }
+            }else{
+                reply.setStatus(true)
+                reply.setValidating(false)
+                reply.setStatusmsg("User not registed in this event!");
+                callback(null,reply)
+            }
+        }
+    }catch (e){
+            const reply=new entryValidation();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
+            reply.setStatus(false);
+            callback(null,reply);
+        }
+ }
     //  falta fazer isto tmb
     getEntryCode =async (call:grpc.ServerUnaryCall<entryParam,entryInfo>,callback:grpc.sendUnaryData<entryInfo>):Promise<void> =>{
         try{
@@ -124,6 +177,44 @@ class AccessEventHandler implements IAccessEventServiceServer{
         //enviar mensagem
     }
     getUserInviteLink =async (call:grpc.ServerUnaryCall<entryGuestParam, entryInfo>,callback:grpc.sendUnaryData<entryInfo>):Promise<void> =>{
+        try{
+            const reply:entryInfo =new entryInfo();
+            if(await getRepository(Event).count({where:{ownerId:call.request.getUserid(),id:call.request.getEventid()}})!=1 ||
+            await getRepository(UserEventAss).count({where:{userId:call.request.getGuestid(),eventId:call.request.getEventid()}})!=1){
+                reply.setStatusmsg("Access denied!")
+                reply.setStatus(false);
+                callback(null,reply);
+                return
+            }else{
+                const secret=call.request.getUserid().toString()+'appevent'+call.request.getEventid().toString()
+                const keycode= crypto.createHash('sha256').update(secret).digest('base64')
+                var newuserCredentials= new UserCredentials();
+                newuserCredentials.date=new Date();
+                newuserCredentials.eventId=call.request.getEventid();
+                newuserCredentials.keySecret=keycode;
+                newuserCredentials.userId=call.request.getGuestid();
+                newuserCredentials= await getRepository(UserCredentials).save(newuserCredentials)
+                var expDate=new Timestamp()
+                expDate.fromDate(newuserCredentials.date)
+                reply.setExpiredate(expDate)
+                reply.setKeycode(keycode)
+                reply.setStatus(true);
+                reply.setStatusmsg("OK")
+                callback(null,reply);
+                return
+
+            }
+        }catch(e){
+            const reply=new entryInfo();
+
+            if (typeof e === "string") {
+            reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
+            reply.setStatus(false);
+            callback(null,reply);
+        }
         //verificar se o userid é owner do evento
         //verificar se guestid está nos participantes do evento
         //guardar o pending na tabela apropriada
