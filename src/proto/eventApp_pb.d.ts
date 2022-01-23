@@ -6,7 +6,6 @@
 
 import * as jspb from "google-protobuf";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
-import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 export class infoId extends jspb.Message { 
     getIdevento(): number;
@@ -486,12 +485,69 @@ export namespace ocupationResponse {
     }
 }
 
+export class loginInfo extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): loginInfo;
+
+    getPassword(): string;
+    setPassword(value: string): loginInfo;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): loginInfo.AsObject;
+    static toObject(includeInstance: boolean, msg: loginInfo): loginInfo.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: loginInfo, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): loginInfo;
+    static deserializeBinaryFromReader(message: loginInfo, reader: jspb.BinaryReader): loginInfo;
+}
+
+export namespace loginInfo {
+    export type AsObject = {
+        username: string,
+        password: string,
+    }
+}
+
+export class authResponse extends jspb.Message { 
+    getState(): boolean;
+    setState(value: boolean): authResponse;
+
+    getToken(): string;
+    setToken(value: string): authResponse;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): authResponse;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): authResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: authResponse): authResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: authResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): authResponse;
+    static deserializeBinaryFromReader(message: authResponse, reader: jspb.BinaryReader): authResponse;
+}
+
+export namespace authResponse {
+    export type AsObject = {
+        state: boolean,
+        token: string,
+        statusmsg: string,
+    }
+}
+
 export class createUserInfo extends jspb.Message { 
     getUsername(): string;
     setUsername(value: string): createUserInfo;
 
     getName(): string;
     setName(value: string): createUserInfo;
+
+    getEmail(): string;
+    setEmail(value: string): createUserInfo;
 
     getAge(): number;
     setAge(value: number): createUserInfo;
@@ -504,6 +560,9 @@ export class createUserInfo extends jspb.Message {
 
     getJob(): string;
     setJob(value: string): createUserInfo;
+
+    getPassword(): string;
+    setPassword(value: string): createUserInfo;
 
 
     serializeBinary(): Uint8Array;
@@ -520,10 +579,12 @@ export namespace createUserInfo {
     export type AsObject = {
         username: string,
         name: string,
+        email: string,
         age: number,
         imageurl: string,
         organization: string,
         job: string,
+        password: string,
     }
 }
 

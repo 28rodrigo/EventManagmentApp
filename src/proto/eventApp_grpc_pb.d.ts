@@ -8,7 +8,6 @@ import * as grpc from "@grpc/grpc-js";
 import {handleClientStreamingCall} from "@grpc/grpc-js/build/src/server-call";
 import * as eventApp_pb from "./eventApp_pb";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
-import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 interface IEventServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     getUserEventInfo: IEventServiceService_IgetUserEventInfo;
@@ -112,10 +111,20 @@ export class EventServiceClient extends grpc.Client implements IEventServiceClie
 }
 
 interface IUserServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    login: IUserServiceService_Ilogin;
     createUser: IUserServiceService_IcreateUser;
     updateUser: IUserServiceService_IupdateUser;
 }
 
+interface IUserServiceService_Ilogin extends grpc.MethodDefinition<eventApp_pb.loginInfo, eventApp_pb.authResponse> {
+    path: "/file.UserService/login";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.loginInfo>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.loginInfo>;
+    responseSerialize: grpc.serialize<eventApp_pb.authResponse>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.authResponse>;
+}
 interface IUserServiceService_IcreateUser extends grpc.MethodDefinition<eventApp_pb.createUserInfo, eventApp_pb.userStateMsg> {
     path: "/file.UserService/createUser";
     requestStream: false;
@@ -138,11 +147,15 @@ interface IUserServiceService_IupdateUser extends grpc.MethodDefinition<eventApp
 export const UserServiceService: IUserServiceService;
 
 export interface IUserServiceServer {
+    login: grpc.handleUnaryCall<eventApp_pb.loginInfo, eventApp_pb.authResponse>;
     createUser: grpc.handleUnaryCall<eventApp_pb.createUserInfo, eventApp_pb.userStateMsg>;
     updateUser: grpc.handleUnaryCall<eventApp_pb.updateUserInfo, eventApp_pb.userStateMsg>;
 }
 
 export interface IUserServiceClient {
+    login(request: eventApp_pb.loginInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
+    login(request: eventApp_pb.loginInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
+    login(request: eventApp_pb.loginInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
     createUser(request: eventApp_pb.createUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
     createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
     createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
@@ -153,6 +166,9 @@ export interface IUserServiceClient {
 
 export class UserServiceClient extends grpc.Client implements IUserServiceClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public login(request: eventApp_pb.loginInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
+    public login(request: eventApp_pb.loginInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
+    public login(request: eventApp_pb.loginInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.authResponse) => void): grpc.ClientUnaryCall;
     public createUser(request: eventApp_pb.createUserInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
     public createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;
     public createUser(request: eventApp_pb.createUserInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.userStateMsg) => void): grpc.ClientUnaryCall;

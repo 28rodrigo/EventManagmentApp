@@ -4,7 +4,17 @@
 var grpc = require('@grpc/grpc-js');
 var eventApp_pb = require('./eventApp_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
-var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
+
+function serialize_file_authResponse(arg) {
+  if (!(arg instanceof eventApp_pb.authResponse)) {
+    throw new Error('Expected argument of type file.authResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_authResponse(buffer_arg) {
+  return eventApp_pb.authResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
 
 function serialize_file_createEventInfo(arg) {
   if (!(arg instanceof eventApp_pb.createEventInfo)) {
@@ -182,6 +192,17 @@ function deserialize_file_infoId(buffer_arg) {
   return eventApp_pb.infoId.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_file_loginInfo(arg) {
+  if (!(arg instanceof eventApp_pb.loginInfo)) {
+    throw new Error('Expected argument of type file.loginInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_loginInfo(buffer_arg) {
+  return eventApp_pb.loginInfo.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_file_ocupationResponse(arg) {
   if (!(arg instanceof eventApp_pb.ocupationResponse)) {
     throw new Error('Expected argument of type file.ocupationResponse');
@@ -289,6 +310,17 @@ var EventServiceService = exports.EventServiceService = {
 exports.EventServiceClient = grpc.makeGenericClientConstructor(EventServiceService);
 // ----------------------------------------------------------------------------------------
 var UserServiceService = exports.UserServiceService = {
+  login: {
+    path: '/file.UserService/login',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.loginInfo,
+    responseType: eventApp_pb.authResponse,
+    requestSerialize: serialize_file_loginInfo,
+    requestDeserialize: deserialize_file_loginInfo,
+    responseSerialize: serialize_file_authResponse,
+    responseDeserialize: deserialize_file_authResponse,
+  },
   // rpc login
 createUser: {
     path: '/file.UserService/createUser',

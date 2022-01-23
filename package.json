@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/dotenv": "^8.2.0",
     "@types/google-protobuf": "^3.15.5",
     "@types/node": "^17.0.2",
@@ -24,11 +25,13 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.4.5",
+    "bcrypt": "^5.0.1",
     "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "elogger": "^1.0.9",
     "grpc": "^1.24.11",
     "grpc-tools": "^1.11.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",

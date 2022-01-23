@@ -3,7 +3,7 @@ syntax = "proto3";
 //option csharp_namespace = "SD_TP2";
 
 import "google/protobuf/timestamp.proto"; //importação para usar o timestamp
-import "google/protobuf/empty.proto";
+//import "google/protobuf/empty.proto";
 package file;
 
 //Serviço dedicado para o cliente UTILIZADOR 
@@ -116,17 +116,29 @@ message ocupationResponse{
 }
 //----------------------------------------------------------------------------------------
 service UserService{
+	rpc login(loginInfo) returns (authResponse);
 //rpc login
 	rpc createUser (createUserInfo) returns(userStateMsg);
 	rpc updateUser (updateUserInfo) returns (userStateMsg);
 }
+message loginInfo{
+	string username=1;
+	string password=2;
+}
+message authResponse{
+	bool state=1;
+	string token=2;
+	string statusMsg=3;
+}
 message createUserInfo{
 	string username=1;
 	string name=2;
-	int32 age=3;
-	string imageUrl=4;
-	string organization=5;
-	string job=6;
+	string email=3;
+	int32 age=4;
+	string imageUrl=5;
+	string organization=6;
+	string job=7;
+	string password=8;
 }
 message updateUserInfo{
 	string username=1;
