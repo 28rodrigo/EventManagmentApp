@@ -5,11 +5,11 @@ var generateToken = (payload:any):string => {
 }
 
 var verify = (token:any, callback:any) => {
-    jwt.verify(token, process.env.TOKEN_SECRET, (err:any, user:any) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, (err:any, payload:any) => {
         if (err) {
             console.error(err);
         }
-        callback(user);
+        callback(payload);
     });
 }
 export default{

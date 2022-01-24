@@ -19,6 +19,7 @@ interface IEventServiceService extends grpc.ServiceDefinition<grpc.UntypedServic
     getMyEvents: IEventServiceService_IgetMyEvents;
     getOtherEvents: IEventServiceService_IgetOtherEvents;
     getExploreEvents: IEventServiceService_IgetExploreEvents;
+    getInviteEvents: IEventServiceService_IgetInviteEvents;
 }
 
 interface IEventServiceService_IgetUserEventInfo extends grpc.MethodDefinition<eventApp_pb.infoId, eventApp_pb.eventUserInfo> {
@@ -102,6 +103,15 @@ interface IEventServiceService_IgetExploreEvents extends grpc.MethodDefinition<e
     responseSerialize: grpc.serialize<eventApp_pb.upcomingReturn>;
     responseDeserialize: grpc.deserialize<eventApp_pb.upcomingReturn>;
 }
+interface IEventServiceService_IgetInviteEvents extends grpc.MethodDefinition<eventApp_pb.infoUserId, eventApp_pb.upcomingReturn> {
+    path: "/file.EventService/getInviteEvents";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.infoUserId>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.infoUserId>;
+    responseSerialize: grpc.serialize<eventApp_pb.upcomingReturn>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.upcomingReturn>;
+}
 
 export const EventServiceService: IEventServiceService;
 
@@ -115,6 +125,7 @@ export interface IEventServiceServer {
     getMyEvents: grpc.handleUnaryCall<eventApp_pb.infoUserId, eventApp_pb.upcomingReturn>;
     getOtherEvents: grpc.handleUnaryCall<eventApp_pb.infoUserId, eventApp_pb.upcomingReturn>;
     getExploreEvents: grpc.handleUnaryCall<eventApp_pb.infoUserId, eventApp_pb.upcomingReturn>;
+    getInviteEvents: grpc.handleUnaryCall<eventApp_pb.infoUserId, eventApp_pb.upcomingReturn>;
 }
 
 export interface IEventServiceClient {
@@ -145,6 +156,9 @@ export interface IEventServiceClient {
     getExploreEvents(request: eventApp_pb.infoUserId, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
     getExploreEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
     getExploreEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    getInviteEvents(request: eventApp_pb.infoUserId, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    getInviteEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    getInviteEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
 }
 
 export class EventServiceClient extends grpc.Client implements IEventServiceClient {
@@ -176,6 +190,9 @@ export class EventServiceClient extends grpc.Client implements IEventServiceClie
     public getExploreEvents(request: eventApp_pb.infoUserId, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
     public getExploreEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
     public getExploreEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    public getInviteEvents(request: eventApp_pb.infoUserId, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    public getInviteEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
+    public getInviteEvents(request: eventApp_pb.infoUserId, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.upcomingReturn) => void): grpc.ClientUnaryCall;
 }
 
 interface IUserServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
@@ -247,11 +264,12 @@ export class UserServiceClient extends grpc.Client implements IUserServiceClient
 
 interface IAccessEventServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     getEntryCode: IAccessEventServiceService_IgetEntryCode;
-    getUserInviteLink: IAccessEventServiceService_IgetUserInviteLink;
     getGlobalinviteLink: IAccessEventServiceService_IgetGlobalinviteLink;
     addUserToEvent: IAccessEventServiceService_IaddUserToEvent;
     validateKeycode: IAccessEventServiceService_IvalidateKeycode;
     registerPublicEvent: IAccessEventServiceService_IregisterPublicEvent;
+    registerInviteEvent: IAccessEventServiceService_IregisterInviteEvent;
+    registerQREvent: IAccessEventServiceService_IregisterQREvent;
 }
 
 interface IAccessEventServiceService_IgetEntryCode extends grpc.MethodDefinition<eventApp_pb.entryParam, eventApp_pb.entryInfo> {
@@ -260,15 +278,6 @@ interface IAccessEventServiceService_IgetEntryCode extends grpc.MethodDefinition
     responseStream: false;
     requestSerialize: grpc.serialize<eventApp_pb.entryParam>;
     requestDeserialize: grpc.deserialize<eventApp_pb.entryParam>;
-    responseSerialize: grpc.serialize<eventApp_pb.entryInfo>;
-    responseDeserialize: grpc.deserialize<eventApp_pb.entryInfo>;
-}
-interface IAccessEventServiceService_IgetUserInviteLink extends grpc.MethodDefinition<eventApp_pb.entryGuestParam, eventApp_pb.entryInfo> {
-    path: "/file.AccessEventService/getUserInviteLink";
-    requestStream: false;
-    responseStream: false;
-    requestSerialize: grpc.serialize<eventApp_pb.entryGuestParam>;
-    requestDeserialize: grpc.deserialize<eventApp_pb.entryGuestParam>;
     responseSerialize: grpc.serialize<eventApp_pb.entryInfo>;
     responseDeserialize: grpc.deserialize<eventApp_pb.entryInfo>;
 }
@@ -308,25 +317,41 @@ interface IAccessEventServiceService_IregisterPublicEvent extends grpc.MethodDef
     responseSerialize: grpc.serialize<eventApp_pb.entryResponse>;
     responseDeserialize: grpc.deserialize<eventApp_pb.entryResponse>;
 }
+interface IAccessEventServiceService_IregisterInviteEvent extends grpc.MethodDefinition<eventApp_pb.publicInviteInfo, eventApp_pb.entryResponse> {
+    path: "/file.AccessEventService/registerInviteEvent";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.publicInviteInfo>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.publicInviteInfo>;
+    responseSerialize: grpc.serialize<eventApp_pb.entryResponse>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.entryResponse>;
+}
+interface IAccessEventServiceService_IregisterQREvent extends grpc.MethodDefinition<eventApp_pb.QRentry, eventApp_pb.entryResponse> {
+    path: "/file.AccessEventService/registerQREvent";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<eventApp_pb.QRentry>;
+    requestDeserialize: grpc.deserialize<eventApp_pb.QRentry>;
+    responseSerialize: grpc.serialize<eventApp_pb.entryResponse>;
+    responseDeserialize: grpc.deserialize<eventApp_pb.entryResponse>;
+}
 
 export const AccessEventServiceService: IAccessEventServiceService;
 
 export interface IAccessEventServiceServer {
     getEntryCode: grpc.handleUnaryCall<eventApp_pb.entryParam, eventApp_pb.entryInfo>;
-    getUserInviteLink: grpc.handleUnaryCall<eventApp_pb.entryGuestParam, eventApp_pb.entryInfo>;
     getGlobalinviteLink: grpc.handleUnaryCall<eventApp_pb.entryGlobalParam, eventApp_pb.entryInfo>;
     addUserToEvent: grpc.handleUnaryCall<eventApp_pb.entryAddUser, eventApp_pb.entryResponse>;
     validateKeycode: grpc.handleUnaryCall<eventApp_pb.entryInfoRequest, eventApp_pb.entryValidation>;
     registerPublicEvent: grpc.handleUnaryCall<eventApp_pb.publicRegisterInfo, eventApp_pb.entryResponse>;
+    registerInviteEvent: grpc.handleUnaryCall<eventApp_pb.publicInviteInfo, eventApp_pb.entryResponse>;
+    registerQREvent: grpc.handleUnaryCall<eventApp_pb.QRentry, eventApp_pb.entryResponse>;
 }
 
 export interface IAccessEventServiceClient {
     getEntryCode(request: eventApp_pb.entryParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    getUserInviteLink(request: eventApp_pb.entryGuestParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    getUserInviteLink(request: eventApp_pb.entryGuestParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    getUserInviteLink(request: eventApp_pb.entryGuestParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
@@ -339,6 +364,12 @@ export interface IAccessEventServiceClient {
     registerPublicEvent(request: eventApp_pb.publicRegisterInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     registerPublicEvent(request: eventApp_pb.publicRegisterInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     registerPublicEvent(request: eventApp_pb.publicRegisterInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerInviteEvent(request: eventApp_pb.publicInviteInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerInviteEvent(request: eventApp_pb.publicInviteInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerInviteEvent(request: eventApp_pb.publicInviteInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerQREvent(request: eventApp_pb.QRentry, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerQREvent(request: eventApp_pb.QRentry, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    registerQREvent(request: eventApp_pb.QRentry, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
 }
 
 export class AccessEventServiceClient extends grpc.Client implements IAccessEventServiceClient {
@@ -346,9 +377,6 @@ export class AccessEventServiceClient extends grpc.Client implements IAccessEven
     public getEntryCode(request: eventApp_pb.entryParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getEntryCode(request: eventApp_pb.entryParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    public getUserInviteLink(request: eventApp_pb.entryGuestParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    public getUserInviteLink(request: eventApp_pb.entryGuestParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
-    public getUserInviteLink(request: eventApp_pb.entryGuestParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
     public getGlobalinviteLink(request: eventApp_pb.entryGlobalParam, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryInfo) => void): grpc.ClientUnaryCall;
@@ -361,6 +389,12 @@ export class AccessEventServiceClient extends grpc.Client implements IAccessEven
     public registerPublicEvent(request: eventApp_pb.publicRegisterInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     public registerPublicEvent(request: eventApp_pb.publicRegisterInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
     public registerPublicEvent(request: eventApp_pb.publicRegisterInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerInviteEvent(request: eventApp_pb.publicInviteInfo, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerInviteEvent(request: eventApp_pb.publicInviteInfo, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerInviteEvent(request: eventApp_pb.publicInviteInfo, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerQREvent(request: eventApp_pb.QRentry, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerQREvent(request: eventApp_pb.QRentry, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
+    public registerQREvent(request: eventApp_pb.QRentry, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: eventApp_pb.entryResponse) => void): grpc.ClientUnaryCall;
 }
 
 interface IFileUploaderServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {

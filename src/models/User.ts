@@ -23,6 +23,8 @@ export  class User {
 
    @Column() 
    imageUrl: string; 
+   @Column()
+   token:string
 
    @Column({nullable:true}) 
    organization: string; 

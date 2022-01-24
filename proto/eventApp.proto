@@ -17,6 +17,7 @@ service EventService {
 	rpc getMyEvents(infoUserId) returns (upcomingReturn);
 	rpc getOtherEvents(infoUserId) returns (upcomingReturn);
 	rpc getExploreEvents(infoUserId) returns (upcomingReturn);
+	rpc getInviteEvents(infoUserId) returns (upcomingReturn);
 }
 
 
@@ -185,14 +186,26 @@ message userStateMsg{
 //-------------------------------------------------------------------------------------
 service AccessEventService{
 	rpc getEntryCode (entryParam) returns (entryInfo) ;
-	rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
+	//rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
 	rpc getGlobalinviteLink( entryGlobalParam)returns(entryInfo);
 	rpc addUserToEvent(entryAddUser)returns(entryResponse);
 	rpc validateKeycode(entryInfoRequest)returns(entryValidation);
 	rpc registerPublicEvent(publicRegisterInfo)returns(entryResponse);
+	rpc registerInviteEvent(publicInviteInfo)returns(entryResponse);
+	rpc registerQREvent(QRentry)returns(entryResponse);
 	// rpc setEventDevice //isto talvez para mais tarde	
 }
-
+message QRentry{
+	string username=1;
+	string token=2;
+	string keycode=3;
+}
+message publicInviteInfo{
+	string username=1;
+	int32 eventId=2;
+	string token=3;
+	bool accept=4;
+}
 message publicRegisterInfo{
 	string username=1;
 	int32 eventId=2;
@@ -200,9 +213,10 @@ message publicRegisterInfo{
 }
 message entryInfoRequest{
 	string keyCode=1;
-	int32 userId=2;
-	int32 guestId=3;
+	string username=2;
+	//int32 guestId=3;
 	int32 eventId=4;
+	string token=5; 
 }
 message entryValidation{
 	bool status=1;
@@ -210,10 +224,9 @@ message entryValidation{
 	bool validating=3;
 }
 message entryAddUser{
-	int32 userId=1;
+	string username=1;
 	int32 eventId=2;
-	int32 guestId=3;
-	google.protobuf.Timestamp expireDate=4;
+	string guestUsername=3;
 
 }
 message entryResponse{
@@ -221,8 +234,9 @@ message entryResponse{
 	string statusMsg=4;
 }
 message entryParam{
-	int32 userId=1;
+	string username=1;
 	int32 eventId=2;
+	string token=3;
 }
 message entryGuestParam{
 	int32 userId=1;
@@ -231,13 +245,13 @@ message entryGuestParam{
 }
 
 message entryGlobalParam{
-	int32 userId=1;
+	string username=1;
 	int32 eventId=2;
+	string token=3;
 }
 
 message entryInfo{
 	string keyCode=1;
-	google.protobuf.Timestamp expireDate=2;
 	bool status=3;
 	string statusMsg=4;
 }

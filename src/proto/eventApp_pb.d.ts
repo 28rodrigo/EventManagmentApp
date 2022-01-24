@@ -782,6 +782,68 @@ export namespace userStateMsg {
     }
 }
 
+export class QRentry extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): QRentry;
+
+    getToken(): string;
+    setToken(value: string): QRentry;
+
+    getKeycode(): string;
+    setKeycode(value: string): QRentry;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): QRentry.AsObject;
+    static toObject(includeInstance: boolean, msg: QRentry): QRentry.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: QRentry, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): QRentry;
+    static deserializeBinaryFromReader(message: QRentry, reader: jspb.BinaryReader): QRentry;
+}
+
+export namespace QRentry {
+    export type AsObject = {
+        username: string,
+        token: string,
+        keycode: string,
+    }
+}
+
+export class publicInviteInfo extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): publicInviteInfo;
+
+    getEventid(): number;
+    setEventid(value: number): publicInviteInfo;
+
+    getToken(): string;
+    setToken(value: string): publicInviteInfo;
+
+    getAccept(): boolean;
+    setAccept(value: boolean): publicInviteInfo;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): publicInviteInfo.AsObject;
+    static toObject(includeInstance: boolean, msg: publicInviteInfo): publicInviteInfo.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: publicInviteInfo, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): publicInviteInfo;
+    static deserializeBinaryFromReader(message: publicInviteInfo, reader: jspb.BinaryReader): publicInviteInfo;
+}
+
+export namespace publicInviteInfo {
+    export type AsObject = {
+        username: string,
+        eventid: number,
+        token: string,
+        accept: boolean,
+    }
+}
+
 export class publicRegisterInfo extends jspb.Message { 
     getUsername(): string;
     setUsername(value: string): publicRegisterInfo;
@@ -815,14 +877,14 @@ export class entryInfoRequest extends jspb.Message {
     getKeycode(): string;
     setKeycode(value: string): entryInfoRequest;
 
-    getUserid(): number;
-    setUserid(value: number): entryInfoRequest;
-
-    getGuestid(): number;
-    setGuestid(value: number): entryInfoRequest;
+    getUsername(): string;
+    setUsername(value: string): entryInfoRequest;
 
     getEventid(): number;
     setEventid(value: number): entryInfoRequest;
+
+    getToken(): string;
+    setToken(value: string): entryInfoRequest;
 
 
     serializeBinary(): Uint8Array;
@@ -838,9 +900,9 @@ export class entryInfoRequest extends jspb.Message {
 export namespace entryInfoRequest {
     export type AsObject = {
         keycode: string,
-        userid: number,
-        guestid: number,
+        username: string,
         eventid: number,
+        token: string,
     }
 }
 
@@ -874,20 +936,14 @@ export namespace entryValidation {
 }
 
 export class entryAddUser extends jspb.Message { 
-    getUserid(): number;
-    setUserid(value: number): entryAddUser;
+    getUsername(): string;
+    setUsername(value: string): entryAddUser;
 
     getEventid(): number;
     setEventid(value: number): entryAddUser;
 
-    getGuestid(): number;
-    setGuestid(value: number): entryAddUser;
-
-
-    hasExpiredate(): boolean;
-    clearExpiredate(): void;
-    getExpiredate(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setExpiredate(value?: google_protobuf_timestamp_pb.Timestamp): entryAddUser;
+    getGuestusername(): string;
+    setGuestusername(value: string): entryAddUser;
 
 
     serializeBinary(): Uint8Array;
@@ -902,10 +958,9 @@ export class entryAddUser extends jspb.Message {
 
 export namespace entryAddUser {
     export type AsObject = {
-        userid: number,
+        username: string,
         eventid: number,
-        guestid: number,
-        expiredate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        guestusername: string,
     }
 }
 
@@ -935,11 +990,14 @@ export namespace entryResponse {
 }
 
 export class entryParam extends jspb.Message { 
-    getUserid(): number;
-    setUserid(value: number): entryParam;
+    getUsername(): string;
+    setUsername(value: string): entryParam;
 
     getEventid(): number;
     setEventid(value: number): entryParam;
+
+    getToken(): string;
+    setToken(value: string): entryParam;
 
 
     serializeBinary(): Uint8Array;
@@ -954,8 +1012,9 @@ export class entryParam extends jspb.Message {
 
 export namespace entryParam {
     export type AsObject = {
-        userid: number,
+        username: string,
         eventid: number,
+        token: string,
     }
 }
 
@@ -989,11 +1048,14 @@ export namespace entryGuestParam {
 }
 
 export class entryGlobalParam extends jspb.Message { 
-    getUserid(): number;
-    setUserid(value: number): entryGlobalParam;
+    getUsername(): string;
+    setUsername(value: string): entryGlobalParam;
 
     getEventid(): number;
     setEventid(value: number): entryGlobalParam;
+
+    getToken(): string;
+    setToken(value: string): entryGlobalParam;
 
 
     serializeBinary(): Uint8Array;
@@ -1008,20 +1070,15 @@ export class entryGlobalParam extends jspb.Message {
 
 export namespace entryGlobalParam {
     export type AsObject = {
-        userid: number,
+        username: string,
         eventid: number,
+        token: string,
     }
 }
 
 export class entryInfo extends jspb.Message { 
     getKeycode(): string;
     setKeycode(value: string): entryInfo;
-
-
-    hasExpiredate(): boolean;
-    clearExpiredate(): void;
-    getExpiredate(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setExpiredate(value?: google_protobuf_timestamp_pb.Timestamp): entryInfo;
 
     getStatus(): boolean;
     setStatus(value: boolean): entryInfo;
@@ -1043,7 +1100,6 @@ export class entryInfo extends jspb.Message {
 export namespace entryInfo {
     export type AsObject = {
         keycode: string,
-        expiredate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         status: boolean,
         statusmsg: string,
     }

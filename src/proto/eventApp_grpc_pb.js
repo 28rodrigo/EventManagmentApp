@@ -5,6 +5,17 @@ var grpc = require('@grpc/grpc-js');
 var eventApp_pb = require('./eventApp_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 
+function serialize_file_QRentry(arg) {
+  if (!(arg instanceof eventApp_pb.QRentry)) {
+    throw new Error('Expected argument of type file.QRentry');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_QRentry(buffer_arg) {
+  return eventApp_pb.QRentry.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_file_authResponse(arg) {
   if (!(arg instanceof eventApp_pb.authResponse)) {
     throw new Error('Expected argument of type file.authResponse');
@@ -58,17 +69,6 @@ function serialize_file_entryGlobalParam(arg) {
 
 function deserialize_file_entryGlobalParam(buffer_arg) {
   return eventApp_pb.entryGlobalParam.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_file_entryGuestParam(arg) {
-  if (!(arg instanceof eventApp_pb.entryGuestParam)) {
-    throw new Error('Expected argument of type file.entryGuestParam');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_file_entryGuestParam(buffer_arg) {
-  return eventApp_pb.entryGuestParam.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_file_entryInfo(arg) {
@@ -223,6 +223,17 @@ function serialize_file_ocupationResponse(arg) {
 
 function deserialize_file_ocupationResponse(buffer_arg) {
   return eventApp_pb.ocupationResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_publicInviteInfo(arg) {
+  if (!(arg instanceof eventApp_pb.publicInviteInfo)) {
+    throw new Error('Expected argument of type file.publicInviteInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_publicInviteInfo(buffer_arg) {
+  return eventApp_pb.publicInviteInfo.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_file_publicRegisterInfo(arg) {
@@ -382,6 +393,17 @@ var EventServiceService = exports.EventServiceService = {
     responseSerialize: serialize_file_upcomingReturn,
     responseDeserialize: deserialize_file_upcomingReturn,
   },
+  getInviteEvents: {
+    path: '/file.EventService/getInviteEvents',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.infoUserId,
+    responseType: eventApp_pb.upcomingReturn,
+    requestSerialize: serialize_file_infoUserId,
+    requestDeserialize: deserialize_file_infoUserId,
+    responseSerialize: serialize_file_upcomingReturn,
+    responseDeserialize: deserialize_file_upcomingReturn,
+  },
 };
 
 exports.EventServiceClient = grpc.makeGenericClientConstructor(EventServiceService);
@@ -437,18 +459,8 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
     responseSerialize: serialize_file_entryInfo,
     responseDeserialize: deserialize_file_entryInfo,
   },
-  getUserInviteLink: {
-    path: '/file.AccessEventService/getUserInviteLink',
-    requestStream: false,
-    responseStream: false,
-    requestType: eventApp_pb.entryGuestParam,
-    responseType: eventApp_pb.entryInfo,
-    requestSerialize: serialize_file_entryGuestParam,
-    requestDeserialize: deserialize_file_entryGuestParam,
-    responseSerialize: serialize_file_entryInfo,
-    responseDeserialize: deserialize_file_entryInfo,
-  },
-  getGlobalinviteLink: {
+  // rpc getUserInviteLink(entryGuestParam) returns (entryInfo) ;
+getGlobalinviteLink: {
     path: '/file.AccessEventService/getGlobalinviteLink',
     requestStream: false,
     responseStream: false,
@@ -489,6 +501,28 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
     responseType: eventApp_pb.entryResponse,
     requestSerialize: serialize_file_publicRegisterInfo,
     requestDeserialize: deserialize_file_publicRegisterInfo,
+    responseSerialize: serialize_file_entryResponse,
+    responseDeserialize: deserialize_file_entryResponse,
+  },
+  registerInviteEvent: {
+    path: '/file.AccessEventService/registerInviteEvent',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.publicInviteInfo,
+    responseType: eventApp_pb.entryResponse,
+    requestSerialize: serialize_file_publicInviteInfo,
+    requestDeserialize: deserialize_file_publicInviteInfo,
+    responseSerialize: serialize_file_entryResponse,
+    responseDeserialize: deserialize_file_entryResponse,
+  },
+  registerQREvent: {
+    path: '/file.AccessEventService/registerQREvent',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.QRentry,
+    responseType: eventApp_pb.entryResponse,
+    requestSerialize: serialize_file_QRentry,
+    requestDeserialize: deserialize_file_QRentry,
     responseSerialize: serialize_file_entryResponse,
     responseDeserialize: deserialize_file_entryResponse,
   },

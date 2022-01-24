@@ -12,7 +12,7 @@ class UserHandler implements IUserServiceServer{
     //login: grpc.handleUnaryCall<loginInfo, authResponse>;
     //createUser: grpc.handleUnaryCall<createUserInfo, userStateMsg>;
     //updateUser: grpc.handleUnaryCall<updateUserInfo, userStateMsg>;
-    private _login = async (call: grpc.ServerUnaryCall<loginInfo, authResponse>, callback: grpc.sendUnaryData<authResponse>): Promise<void> => {
+    login = async (call: grpc.ServerUnaryCall<loginInfo, authResponse>, callback: grpc.sendUnaryData<authResponse>): Promise<void> => {
         try {
             const reply = new authResponse();
             if (await getRepository(User).count({ where: { username: call.request.getUsername() } }) != 1) {
@@ -31,7 +31,9 @@ class UserHandler implements IUserServiceServer{
                             reply.setStatusmsg("OK");
                             
                            if (user!=undefined) {
-                            reply.setToken(auth.default.generateToken(user?.username + user?.email + +user.id+""));
+                            user.token=auth.default.generateToken(user?.username + user?.email + +user.id+"")
+                             getRepository(User).update(user.id,user);
+                            reply.setToken(user.token);
                             reply.setName(user?.name);
                             reply.setImgurl(user.imageUrl);
                         }
@@ -60,12 +62,7 @@ class UserHandler implements IUserServiceServer{
         }
 
     };
-    public get login() {
-        return this._login;
-    }
-    public set login(value) {
-        this._login = value;
-    }
+
     createUser =async (call:grpc.ServerUnaryCall<createUserInfo, userStateMsg>,callback:grpc.sendUnaryData<userStateMsg>):Promise<void> =>{
         try{
             bcrypt.hash(call.request.getPassword(),10,async(err,hash)=>{
