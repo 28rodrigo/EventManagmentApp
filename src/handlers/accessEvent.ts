@@ -61,7 +61,7 @@ registerQREvent =async (call:grpc.ServerUnaryCall<QRentry, entryResponse>,callba
                 }
 
             }
-            reply.setStatus(true);
+            reply.setStatus(false);
                     reply.setStatusmsg("Event key not working")
                     callback(null,reply);
                     
@@ -243,7 +243,7 @@ registerPublicEvent=async (call:grpc.ServerUnaryCall<publicRegisterInfo, entryRe
                 reply.setStatusmsg("Accesse denied!");
                 callback(null,reply)
             }
-            var UserCred=await getRepository(UserCredentials).find({where:{event:event,user:user},order:{date:"DESC"}})
+            var UserCred=await getRepository(UserCredentials).find({where:{event:event},order:{date:"DESC"}})
             for(var i=0;i<UserCred.length;i++)
             {
                 var cred=UserCred[i];
@@ -260,6 +260,9 @@ registerPublicEvent=async (call:grpc.ServerUnaryCall<publicRegisterInfo, entryRe
                 reply.setStatusmsg("Accesse denied!");
                 callback(null,reply)
             }
+            reply.setStatus(false)
+                reply.setStatusmsg("Sem acesso!");
+                callback(null,reply)
         }
             
             
