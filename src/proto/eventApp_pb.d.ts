@@ -7,9 +7,37 @@
 import * as jspb from "google-protobuf";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
+export class infoUserId extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): infoUserId;
+
+    getToken(): string;
+    setToken(value: string): infoUserId;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): infoUserId.AsObject;
+    static toObject(includeInstance: boolean, msg: infoUserId): infoUserId.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: infoUserId, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): infoUserId;
+    static deserializeBinaryFromReader(message: infoUserId, reader: jspb.BinaryReader): infoUserId;
+}
+
+export namespace infoUserId {
+    export type AsObject = {
+        username: string,
+        token: string,
+    }
+}
+
 export class infoId extends jspb.Message { 
     getIdevento(): number;
     setIdevento(value: number): infoId;
+
+    getToken(): string;
+    setToken(value: string): infoId;
 
 
     serializeBinary(): Uint8Array;
@@ -25,6 +53,82 @@ export class infoId extends jspb.Message {
 export namespace infoId {
     export type AsObject = {
         idevento: number,
+        token: string,
+    }
+}
+
+export class upcomingReturn extends jspb.Message { 
+    clearEventsList(): void;
+    getEventsList(): Array<eventOverview>;
+    setEventsList(value: Array<eventOverview>): upcomingReturn;
+    addEvents(value?: eventOverview, index?: number): eventOverview;
+
+    getState(): boolean;
+    setState(value: boolean): upcomingReturn;
+
+    getStatusmsg(): string;
+    setStatusmsg(value: string): upcomingReturn;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): upcomingReturn.AsObject;
+    static toObject(includeInstance: boolean, msg: upcomingReturn): upcomingReturn.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: upcomingReturn, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): upcomingReturn;
+    static deserializeBinaryFromReader(message: upcomingReturn, reader: jspb.BinaryReader): upcomingReturn;
+}
+
+export namespace upcomingReturn {
+    export type AsObject = {
+        eventsList: Array<eventOverview.AsObject>,
+        state: boolean,
+        statusmsg: string,
+    }
+}
+
+export class eventOverview extends jspb.Message { 
+    getName(): string;
+    setName(value: string): eventOverview;
+
+    getImgurl(): string;
+    setImgurl(value: string): eventOverview;
+
+    getEventid(): number;
+    setEventid(value: number): eventOverview;
+
+
+    hasStartdate(): boolean;
+    clearStartdate(): void;
+    getStartdate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setStartdate(value?: google_protobuf_timestamp_pb.Timestamp): eventOverview;
+
+    getEventplace(): number;
+    setEventplace(value: number): eventOverview;
+
+    getEventtype(): number;
+    setEventtype(value: number): eventOverview;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): eventOverview.AsObject;
+    static toObject(includeInstance: boolean, msg: eventOverview): eventOverview.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: eventOverview, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): eventOverview;
+    static deserializeBinaryFromReader(message: eventOverview, reader: jspb.BinaryReader): eventOverview;
+}
+
+export namespace eventOverview {
+    export type AsObject = {
+        name: string,
+        imgurl: string,
+        eventid: number,
+        startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        eventplace: number,
+        eventtype: number,
     }
 }
 
@@ -280,8 +384,11 @@ export class createEventInfo extends jspb.Message {
     getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): createEventInfo;
 
-    getUserid(): number;
-    setUserid(value: number): createEventInfo;
+    getUsername(): string;
+    setUsername(value: string): createEventInfo;
+
+    getToken(): string;
+    setToken(value: string): createEventInfo;
 
 
     serializeBinary(): Uint8Array;
@@ -306,7 +413,8 @@ export namespace createEventInfo {
         agerestriction: number,
         startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        userid: number,
+        username: string,
+        token: string,
     }
 }
 
@@ -350,8 +458,11 @@ export class updateEventInfo extends jspb.Message {
     getEnddate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setEnddate(value?: google_protobuf_timestamp_pb.Timestamp): updateEventInfo;
 
-    getUserid(): number;
-    setUserid(value: number): updateEventInfo;
+    getUsername(): string;
+    setUsername(value: string): updateEventInfo;
+
+    getToken(): string;
+    setToken(value: string): updateEventInfo;
 
 
     serializeBinary(): Uint8Array;
@@ -377,7 +488,8 @@ export namespace updateEventInfo {
         agerestriction: number,
         startdate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         enddate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        userid: number,
+        username: string,
+        token: string,
     }
 }
 
@@ -520,6 +632,12 @@ export class authResponse extends jspb.Message {
     getStatusmsg(): string;
     setStatusmsg(value: string): authResponse;
 
+    getName(): string;
+    setName(value: string): authResponse;
+
+    getImgurl(): string;
+    setImgurl(value: string): authResponse;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): authResponse.AsObject;
@@ -536,6 +654,8 @@ export namespace authResponse {
         state: boolean,
         token: string,
         statusmsg: string,
+        name: string,
+        imgurl: string,
     }
 }
 
@@ -659,6 +779,35 @@ export namespace userStateMsg {
         state: boolean,
         id: number,
         statusmsg: string,
+    }
+}
+
+export class publicRegisterInfo extends jspb.Message { 
+    getUsername(): string;
+    setUsername(value: string): publicRegisterInfo;
+
+    getEventid(): number;
+    setEventid(value: number): publicRegisterInfo;
+
+    getToken(): string;
+    setToken(value: string): publicRegisterInfo;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): publicRegisterInfo.AsObject;
+    static toObject(includeInstance: boolean, msg: publicRegisterInfo): publicRegisterInfo.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: publicRegisterInfo, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): publicRegisterInfo;
+    static deserializeBinaryFromReader(message: publicRegisterInfo, reader: jspb.BinaryReader): publicRegisterInfo;
+}
+
+export namespace publicRegisterInfo {
+    export type AsObject = {
+        username: string,
+        eventid: number,
+        token: string,
     }
 }
 

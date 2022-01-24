@@ -1,5 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"; 
 import 'reflect-metadata'
+import { UserEventAss } from "./UserEventAss";
+import { UserCredentials } from "./UserCredentials";
 
 @Entity() 
 export  class User {   
@@ -24,7 +26,10 @@ export  class User {
 
    @Column({nullable:true}) 
    organization: string; 
-
+   @OneToMany(() => UserEventAss, userEventAss => userEventAss.user)
+    userEventAss: UserEventAss[];
+    @OneToMany(() => UserCredentials, userCredentials => userCredentials.user)
+    userCredentials: UserCredentials[];
    @Column({nullable:true}) 
    job: string; 
 }

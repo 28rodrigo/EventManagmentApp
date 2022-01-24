@@ -29,8 +29,12 @@ class UserHandler implements IUserServiceServer{
                         if (result) {
                             reply.setState(true);
                             reply.setStatusmsg("OK");
-                           if (user!=undefined) 
+                            
+                           if (user!=undefined) {
                             reply.setToken(auth.default.generateToken(user?.username + user?.email + +user.id+""));
+                            reply.setName(user?.name);
+                            reply.setImgurl(user.imageUrl);
+                        }
                             callback(null, reply);
                         } else {
                             reply.setState(false);

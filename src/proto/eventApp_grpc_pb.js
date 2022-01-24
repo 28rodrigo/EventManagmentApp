@@ -192,6 +192,17 @@ function deserialize_file_infoId(buffer_arg) {
   return eventApp_pb.infoId.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_file_infoUserId(arg) {
+  if (!(arg instanceof eventApp_pb.infoUserId)) {
+    throw new Error('Expected argument of type file.infoUserId');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_infoUserId(buffer_arg) {
+  return eventApp_pb.infoUserId.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_file_loginInfo(arg) {
   if (!(arg instanceof eventApp_pb.loginInfo)) {
     throw new Error('Expected argument of type file.loginInfo');
@@ -212,6 +223,28 @@ function serialize_file_ocupationResponse(arg) {
 
 function deserialize_file_ocupationResponse(buffer_arg) {
   return eventApp_pb.ocupationResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_publicRegisterInfo(arg) {
+  if (!(arg instanceof eventApp_pb.publicRegisterInfo)) {
+    throw new Error('Expected argument of type file.publicRegisterInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_publicRegisterInfo(buffer_arg) {
+  return eventApp_pb.publicRegisterInfo.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_file_upcomingReturn(arg) {
+  if (!(arg instanceof eventApp_pb.upcomingReturn)) {
+    throw new Error('Expected argument of type file.upcomingReturn');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_file_upcomingReturn(buffer_arg) {
+  return eventApp_pb.upcomingReturn.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_file_updateEventInfo(arg) {
@@ -304,6 +337,50 @@ var EventServiceService = exports.EventServiceService = {
     requestDeserialize: deserialize_file_updateEventInfo,
     responseSerialize: serialize_file_eventStateMsg,
     responseDeserialize: deserialize_file_eventStateMsg,
+  },
+  getUpcomingEvents: {
+    path: '/file.EventService/getUpcomingEvents',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.infoUserId,
+    responseType: eventApp_pb.upcomingReturn,
+    requestSerialize: serialize_file_infoUserId,
+    requestDeserialize: deserialize_file_infoUserId,
+    responseSerialize: serialize_file_upcomingReturn,
+    responseDeserialize: deserialize_file_upcomingReturn,
+  },
+  getMyEvents: {
+    path: '/file.EventService/getMyEvents',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.infoUserId,
+    responseType: eventApp_pb.upcomingReturn,
+    requestSerialize: serialize_file_infoUserId,
+    requestDeserialize: deserialize_file_infoUserId,
+    responseSerialize: serialize_file_upcomingReturn,
+    responseDeserialize: deserialize_file_upcomingReturn,
+  },
+  getOtherEvents: {
+    path: '/file.EventService/getOtherEvents',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.infoUserId,
+    responseType: eventApp_pb.upcomingReturn,
+    requestSerialize: serialize_file_infoUserId,
+    requestDeserialize: deserialize_file_infoUserId,
+    responseSerialize: serialize_file_upcomingReturn,
+    responseDeserialize: deserialize_file_upcomingReturn,
+  },
+  getExploreEvents: {
+    path: '/file.EventService/getExploreEvents',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.infoUserId,
+    responseType: eventApp_pb.upcomingReturn,
+    requestSerialize: serialize_file_infoUserId,
+    requestDeserialize: deserialize_file_infoUserId,
+    responseSerialize: serialize_file_upcomingReturn,
+    responseDeserialize: deserialize_file_upcomingReturn,
   },
 };
 
@@ -403,6 +480,17 @@ var AccessEventServiceService = exports.AccessEventServiceService = {
     requestDeserialize: deserialize_file_entryInfoRequest,
     responseSerialize: serialize_file_entryValidation,
     responseDeserialize: deserialize_file_entryValidation,
+  },
+  registerPublicEvent: {
+    path: '/file.AccessEventService/registerPublicEvent',
+    requestStream: false,
+    responseStream: false,
+    requestType: eventApp_pb.publicRegisterInfo,
+    responseType: eventApp_pb.entryResponse,
+    requestSerialize: serialize_file_publicRegisterInfo,
+    requestDeserialize: deserialize_file_publicRegisterInfo,
+    responseSerialize: serialize_file_entryResponse,
+    responseDeserialize: deserialize_file_entryResponse,
   },
   // rpc setEventDevice //isto talvez para mais tarde	
 };

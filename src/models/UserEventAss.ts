@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne} from "typeorm"; 
 import { User } from "./User";
 import { Event } from "./Event";
 import 'reflect-metadata'
@@ -13,14 +13,11 @@ export  class UserEventAss{
     @PrimaryGeneratedColumn() 
     id: number; 
    
-   @OneToOne(()=> User)
-   @JoinColumn()
-   userId: number; 
-
+    @ManyToOne(() => User, user => user.userEventAss)@JoinColumn()
+   user: User; 
    
-   @OneToOne(()=> Event)
-   @JoinColumn()
-   eventId: number; 
+   @ManyToOne(() => Event, event => event.userEventAss)@JoinColumn()
+   event: Event; 
    
    @Column('timestamp', { nullable: true, default: () => 'CURRENT_TIMESTAMP' })  
     expireDate: Date;

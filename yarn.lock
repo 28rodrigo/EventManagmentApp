@@ -153,6 +153,11 @@
     "@types/long" "*"
     "@types/node" "*"
 
+"@types/date-and-time@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@types/date-and-time/-/date-and-time-0.13.0.tgz#8252c1a8d166a8baf4e9631321a85e6e5ce59457"
+  integrity sha512-kHEncapIgrqaY8r2tyb19EvdKyhNjwheLl5cYTorsWJtURoI+oGm5ehW8CLAaq4dvu8x9z56FcXqAT4Mm5Nvzw==
+
 "@types/dotenv@^8.2.0":
   version "8.2.0"
   resolved "https://registry.npmjs.org/@types/dotenv/-/dotenv-8.2.0.tgz"
@@ -1067,6 +1072,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+date-and-time@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-2.1.0.tgz#007efa9624684457259f19348b442e45128a6f1c"
+  integrity sha512-X/b2gM7e8zQ7siiE0DhRLeNMpuCkIqec5Jnx4GMk/HWB71a6e5Lz48mH9/GIS/hpLsBRFZfMF1gjXBkY0vq5oA==
 
 date.js@^0.3.1:
   version "0.3.3"

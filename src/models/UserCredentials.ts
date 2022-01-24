@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne} from "typeorm"; 
 import { Event } from "./Event";
 import { User } from "./User";
 import 'reflect-metadata'
@@ -9,14 +9,12 @@ export  class UserCredentials {
     @PrimaryGeneratedColumn() 
     id: number; 
     
-    @OneToOne(()=> Event)
-    @JoinColumn()
-    eventId: number; 
+    @ManyToOne(() => Event, event => event.userCredentials)@JoinColumn()
+    event: Event; 
 
 
-   @OneToOne(()=> User)
-   @JoinColumn()
-   userId: number; 
+    @ManyToOne(() => User, user => user.userCredentials)@JoinColumn()
+   user: User; 
    
    @Column() 
     keySecret: string; 

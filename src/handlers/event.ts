@@ -1,28 +1,326 @@
 import * as grpc from '@grpc/grpc-js';
-import { entryParam,entryInfo, createEventInfo, eventAdminInfo, eventStateMsg, eventUserInfo, infoId, ocupationResponse, updateEventInfo, user, ocupation} from '../proto/eventApp_pb';
+import { entryParam,entryInfo, createEventInfo, eventAdminInfo, eventStateMsg, eventUserInfo, infoId, ocupationResponse, updateEventInfo, user, ocupation, infoUserId, upcomingReturn, eventOverview} from '../proto/eventApp_pb';
 import {EventServiceService,IEventServiceServer } from '../proto/eventApp_grpc_pb';
-
+import * as date from'date-and-time';
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 import { Event } from '../models/Event';
-import { getRepository } from 'typeorm';
+import { getRepository, Not } from 'typeorm';
 import { start } from 'repl';
+import { User } from '../models/User';
+import { UserEventAss } from '../models/UserEventAss';
+
 
 class EventHandler implements IEventServiceServer
 {
+    //getExploreEvents: grpc.handleUnaryCall<infoUserId, upcomingReturn>;
+    //getExploreEvents: grpc.handleUnaryCall<infoUserId, upcomingReturn>;
+    //getOtherEvents: grpc.handleUnaryCall<infoUserId, upcomingReturn>;
+    // getMyEvents: grpc.handleUnaryCall<infoUserId, upcomingReturn>;
+    //getUpcomingEvents: grpc.handleUnaryCall<infoUserId, upcomingReturn>;
     //getUserEventInfo: grpc.handleUnaryCall<infoId, eventUserInfo>;
    // getAdminEventInfo: grpc.handleUnaryCall<infoId, eventAdminInfo>;
     //getStatisticsInfo: grpc.handleUnaryCall<infoId, ocupationResponse>;
     //createEvent: grpc.handleUnaryCall<createEventInfo, eventStateMsg>;
    // updateEvent: grpc.handleUnaryCall<updateEventInfo, eventStateMsg>;
+
 /**
  * @param call
  * @param callback
  *  */   
+    getExploreEvents = async (call: grpc.ServerUnaryCall<infoUserId, upcomingReturn>, callback: grpc.sendUnaryData<upcomingReturn>): Promise<void> => {
+        
+        try {
+            const reply = new upcomingReturn();
+
+            var user = await getRepository(User).findOne({ where: { username: call.request.getUsername() } });
+            if (!user) {
+                reply.setState(false);
+                reply.setStatusmsg("User não existe!");
+                callback(null, reply);
+            } else {
+                var Useraccevents = await getRepository(UserEventAss).find({ where: { user: user }, relations: ['event'] });
+                var events: Event[] = await getRepository(Event).find({ where: { ownerId: Not(user.id) ,eventType:1} });
+                var explorerEvents=[]
+                
+                if (Useraccevents.length < 1) {
+
+                    var outgoingEvents: eventOverview[] = [];
+                for (var i = 0; i < events.length; i++) {
+                    
+                        var eventaux1=events[i];
+                        var outeve = new eventOverview();
+                        outeve.setEventid(eventaux1.id);
+                        outeve.setImgurl(eventaux1.imageUrl);
+                        outeve.setName(eventaux1.name);
+                        outeve.setEventid(eventaux1.id);
+                        outeve.setEventplace(eventaux1.eventLocal)
+                        outeve.setEventtype(eventaux1.eventType)
+
+                        const statDate = new Timestamp();
+                        statDate.fromDate(eventaux1.startDate);
+                        outeve.setStartdate(statDate);
+
+                        outgoingEvents.push(outeve);
+                    
+                }
+                reply.setEventsList(outgoingEvents);
+                reply.setState(true);
+                reply.setStatusmsg('OK');
+                callback(null, reply);
+                }
+                if (events.length < 1) {
+                    reply.setState(false);
+                    reply.setStatusmsg("Sem eventos!");
+                    callback(null, reply);
+                    return;
+                }
+                for (var i = 0; i < events.length; i++) {
+                    
+                    var eventass = events[i];
+                    for (var j = 0; j < Useraccevents.length; j++) {
+                        var eventaux = Useraccevents[j];
+                        
+                        if (eventaux.event.id != eventass.id)
+                            explorerEvents.push(eventass);
+                    }
+                }
+                var outgoingEvents: eventOverview[] = [];
+                for (var i = 0; i < explorerEvents.length; i++) {
+                    
+                        var eventaux1=explorerEvents[i];
+                        var outeve = new eventOverview();
+                        outeve.setEventid(eventaux1.id);
+                        outeve.setImgurl(eventaux1.imageUrl);
+                        outeve.setName(eventaux1.name);
+                        outeve.setEventid(eventaux1.id);
+
+                        const statDate = new Timestamp();
+                        statDate.fromDate(eventaux1.startDate);
+                        outeve.setStartdate(statDate);
+
+                        outgoingEvents.push(outeve);
+                    
+                }
+                reply.setEventsList(outgoingEvents);
+                reply.setState(true);
+                reply.setStatusmsg('OK');
+                callback(null, reply);
+            }
+        } catch (e) {
+            const reply = new upcomingReturn();
+
+            if (typeof e === "string") {
+                reply.setStatusmsg(e.toUpperCase());
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message);
+            }
+            reply.setState(false);
+            callback(null, reply);
+        }
+    };
+
+    getOtherEvents=async (call:grpc.ServerUnaryCall<infoUserId, upcomingReturn>,callback:grpc.sendUnaryData<upcomingReturn>):Promise<void> =>{
+        try{
+            const reply=new upcomingReturn();
+            var user=await getRepository(User).findOne({where:{username:call.request.getUsername()}})
+            if(!user)
+            {
+                
+                
+                reply.setState(false);
+                reply.setStatusmsg("User não existe!")
+                callback(null,reply);
+            }else{
+                var Useraccevents= await getRepository(UserEventAss).find({where:{user:user},relations:['event']});
+                var events:Event[]=[];
+                if(Useraccevents.length<1)
+                {
+                    reply.setState(false);
+                    reply.setStatusmsg("Utilizador sem acesso a eventos!")
+                    callback(null,reply);
+                    return
+                }
+                console.info(Useraccevents)
+                for(var i=0;i<Useraccevents.length;i++)
+                {
+                    var eventass=Useraccevents[i];
+                    var event= await getRepository(Event).findOne({where:{id:eventass.event.id}});
+                    console.info(event)
+                    if(event!=undefined)
+                    events.push(event);
+                }
     
+    
+                var outgoingEvents:eventOverview[]=[]
+                for(var i=0;i<events.length;i++){
+                    var eventaux=events[i];
+                    if(eventaux.startDate<date.addYears(eventaux.startDate,2))
+                    {
+                        var outeve= new eventOverview()
+                        outeve.setEventid(eventaux.id)
+                        outeve.setImgurl(eventaux.imageUrl);
+                        outeve.setName(eventaux.name);
+                        outeve.setEventid(eventaux.id);
+                        
+                        const statDate=new Timestamp();
+                statDate.fromDate(eventaux.startDate)
+                        outeve.setStartdate(statDate)
+
+                        outgoingEvents.push(outeve)
+                    }
+                }
+                
+                console.info(outgoingEvents)
+                reply.setEventsList(outgoingEvents)
+                reply.setState(true);
+                reply.setStatusmsg('OK')
+                callback(null,reply);
+            }
+        }catch(e){
+            const reply=new upcomingReturn();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
+            reply.setState(false);
+            callback(null,reply);
+        }
+    }
+    getMyEvents=async (call:grpc.ServerUnaryCall<infoUserId, upcomingReturn>,callback:grpc.sendUnaryData<upcomingReturn>):Promise<void> =>{
+        try{
+            const reply=new upcomingReturn();
+            var user=await getRepository(User).findOne({where:{username:call.request.getUsername()}})
+            if(!user)
+            {
+                
+                
+                reply.setState(false);
+                reply.setStatusmsg("User não existe!")
+                callback(null,reply);
+            }else{
+                var events= await getRepository(Event).find({where:{ownerId:user.id}});
+                if(events.length<0){
+                    reply.setState(false);
+                    reply.setStatusmsg("User não tem eventos!")
+                    callback(null,reply);
+                }
+                var outgoingEvents:eventOverview[]=[]
+                for(var i=0;i<events.length;i++){
+                    var eventaux=events[i];
+                    
+                        var outeve= new eventOverview()
+                        outeve.setEventid(eventaux.id)
+                        outeve.setImgurl(eventaux.imageUrl);
+                        outeve.setName(eventaux.name);
+                        outeve.setEventid(eventaux.id);
+                        outeve.setEventplace(eventaux.eventLocal);
+                        outeve.setEventtype(eventaux.eventType);
+                    
+                        
+                        const statDate=new Timestamp();
+                statDate.fromDate(eventaux.startDate)
+                        outeve.setStartdate(statDate)
+
+                        outgoingEvents.push(outeve)
+                    
+                }
+                
+                console.info(outgoingEvents)
+                reply.setEventsList(outgoingEvents)
+                reply.setState(true);
+                reply.setStatusmsg('OK')
+                callback(null,reply);
+            }
+        }catch(e){
+            const reply=new upcomingReturn();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
+            reply.setState(false);
+            callback(null,reply);
+        }
+    }
+    getUpcomingEvents=async (call:grpc.ServerUnaryCall<infoUserId, upcomingReturn>,callback:grpc.sendUnaryData<upcomingReturn>):Promise<void> =>{
+        try{
+            const reply=new upcomingReturn();
+            var user=await getRepository(User).findOne({where:{username:call.request.getUsername()}})
+            if(!user)
+            {
+                
+                
+                reply.setState(false);
+                reply.setStatusmsg("User não existe!")
+                callback(null,reply);
+            }else{
+                var Useraccevents= await getRepository(UserEventAss).find({where:{user:user},relations:['event']});
+                var events:Event[]=[];
+                if(Useraccevents.length<1)
+                {
+                    reply.setState(false);
+                    reply.setStatusmsg("Utilizador sem acesso a eventos!")
+                    callback(null,reply);
+                    return
+                }
+                console.info(Useraccevents)
+                for(var i=0;i<Useraccevents.length;i++)
+                {
+                    var eventass=Useraccevents[i];
+                    var event= await getRepository(Event).findOne({where:{id:eventass.event.id}});
+                    console.info(event)
+                    if(event!=undefined)
+                    events.push(event);
+                }
+    
+    
+                var outgoingEvents:eventOverview[]=[]
+                for(var i=0;i<events.length;i++){
+                    var eventaux=events[i];
+                    if(eventaux.startDate<date.addYears(eventaux.startDate,2))
+                    {
+                        var outeve= new eventOverview()
+                        outeve.setEventid(eventaux.id)
+                        outeve.setImgurl(eventaux.imageUrl);
+                        outeve.setName(eventaux.name);
+                        outeve.setEventid(eventaux.id);
+                        
+                        const statDate=new Timestamp();
+                statDate.fromDate(eventaux.startDate)
+                        outeve.setStartdate(statDate)
+
+                        outgoingEvents.push(outeve)
+                    }
+                }
+                
+                console.info(outgoingEvents)
+                reply.setEventsList(outgoingEvents)
+                reply.setState(true);
+                reply.setStatusmsg('OK')
+                callback(null,reply);
+            }
+        }catch(e){
+            const reply=new upcomingReturn();
+
+            if (typeof e === "string") {
+               reply.setStatusmsg(e.toUpperCase())
+            } else if (e instanceof Error) {
+                reply.setStatusmsg(e.message)  
+            }
+            reply.setState(false);
+            callback(null,reply);
+        }
+         
+    }
     createEvent =async (call:grpc.ServerUnaryCall<createEventInfo, eventStateMsg>,callback:grpc.sendUnaryData<eventStateMsg>):Promise<void> =>{
         try{
             var newE=new Event();
-            newE.ownerId=call.request.getUserid();
+            var user=await getRepository(User).findOne({where:{username:call.request.getUsername()}});
+            if(user)
+            newE.ownerId=user.id ;
             newE.name=call.request.getName();
             newE.imageUrl=call.request.getImgurl();
             newE.description=call.request.getDescription();
@@ -72,7 +370,9 @@ class EventHandler implements IEventServiceServer
     }
     updateEvent =async (call:grpc.ServerUnaryCall<updateEventInfo, eventStateMsg>,callback:grpc.sendUnaryData<eventStateMsg>):Promise<void> =>{
         try{
-            if(await getRepository(Event).count({where:{id:call.request.getId(),ownerId:call.request.getUserid()}})!=1)
+            var user= await getRepository(User).findOne({where:{username:call.request.getUsername()}});
+            if(user)
+            if(await getRepository(Event).count({where:{id:call.request.getId(),ownerId:user.id}})!=1)
         {
             const reply=new eventStateMsg();
             reply.setId(0)

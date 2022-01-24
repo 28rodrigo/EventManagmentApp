@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 var generateToken = (payload:any):string => {
-    return jwt.sign({name: payload}, process.env.TOKEN_SECRET, { expiresIn: 3600000000});
+    return jwt.sign({name: payload}, process.env.TOKEN_SECRET, { expiresIn: 36000000060});
 }
 
 var verify = (token:any, callback:any) => {

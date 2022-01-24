@@ -1,6 +1,9 @@
-import {Entity, PrimaryGeneratedColumn, Column, Double, ColumnTypeUndefinedError, OneToOne, JoinColumn,} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, Double, ColumnTypeUndefinedError, OneToOne, JoinColumn, OneToMany,} from "typeorm"; 
 import 'reflect-metadata'
 import { User } from "./User";
+import { UserEventAss } from "./UserEventAss";
+import { UserCredentials } from "./UserCredentials";
+import { EventStats } from "./EventStats";
 export enum localType{
     PLACE=1,
     ONLINE=2
@@ -19,8 +22,6 @@ export  class Event {
    name: string; 
 
    @Column()
-   @OneToOne(()=> User)
-   @JoinColumn()
    ownerId: number; 
    
    @Column() 
@@ -58,5 +59,11 @@ export  class Event {
 
     @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })  
     endDate: Date;
+    @OneToMany(() => UserEventAss, userEventAss => userEventAss.event)
+    userEventAss: UserEventAss[];
+    @OneToMany(() => UserCredentials, userCredentials => userCredentials.event)
+    userCredentials: UserCredentials[];
+    @OneToMany(() => EventStats, eventStats => eventStats.event)
+    eventStats: EventStats[];
 
 }   

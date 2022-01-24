@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, Double} from "typeorm"; 
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, Double, ManyToOne} from "typeorm"; 
 import { Event } from "./Event";
 import 'reflect-metadata'
 
@@ -8,10 +8,9 @@ export  class EventStats {
    @PrimaryGeneratedColumn() 
    id: number; 
    
-   @Column({primary:true,})
-   @OneToOne(()=> Event)
-   @JoinColumn()
-   eventId: number; 
+   
+   @ManyToOne(() => Event, event => event.eventStats)@JoinColumn()
+    event: Event; 
    
    @Column('timestamp', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })  
     date: Date;
